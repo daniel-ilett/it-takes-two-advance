@@ -5,5 +5,6 @@
 #include "gba_types.h"
 #include "gba_regs.h"
 #include "gba_video.h"
+#include "gba_sprites.h"
 
 #endif
