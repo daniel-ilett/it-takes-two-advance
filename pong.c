@@ -1,25 +1,38 @@
 // The main game loop is written here.
 
 #include "gba.h"
+#include "pong.h"
+
+// Include backgrounds.
 #include "bg.h"
+
+// Include sprites.
 #include "ball.h"
 #include "bar.h"
-
-#include "pong.h"
+#include "crack.h"
+#include "numbers.h"
 
 OAMEntry sprites[128];
 
 u16 xball = 30;
-u16 yball = 50;
+u16 yball = 15;
+u8 xspeed = 4;
+u8 yspeed = 2;
 u8 ballDir = 0;
 
 u16 xbar = 10;
 u16 ybar = 10;
 
+u16 xai = 222;
+u16 yai = 10;
+
 u8 xMin = 8;
 u8 yMin = 8;
 u8 xMax = 224;
 u8 yMax = 144;
+
+u8 playerScore = 0;
+u8 aiScore = 0;
 
 int main()
 {
@@ -46,25 +59,59 @@ int main()
 	}
 
 	// Copy the ball pixel data to the first location in sprite data.
-	memcpy((u16*)0x06014000, &ballData, sizeof(ballData));
-	memcpy((u16*)0x06014100, &barData,  sizeof(barData));
+	memcpy((u16*)0x06014000, &ballData, 	sizeof(ballData));
+	memcpy((u16*)0x06014100, &barData,  	sizeof(barData));
+	memcpy((u16*)0x06014300, &crackData, 	sizeof(crackData));
+	memcpy((u16*)0x06014400, &number0Data, 	sizeof(number0Data));
+	memcpy((u16*)0x06014500, &number1Data, 	sizeof(number1Data));
+	memcpy((u16*)0x06014600, &number2Data, 	sizeof(number2Data));
+	memcpy((u16*)0x06014700, &number3Data, 	sizeof(number3Data));
+	memcpy((u16*)0x06014800, &number4Data, 	sizeof(number4Data));
+	memcpy((u16*)0x06014900, &number5Data, 	sizeof(number5Data));
+	memcpy((u16*)0x06014a00, &number6Data, 	sizeof(number6Data));
+	memcpy((u16*)0x06014b00, &number7Data, 	sizeof(number7Data));
+	memcpy((u16*)0x06014c00, &number8Data, 	sizeof(number8Data));
+	memcpy((u16*)0x06014d00, &number9Data, 	sizeof(number9Data));
 
-	// Now create the sprite.
+	// Create the sprite for the ball.
 	sprites[0].attribute0 = COLOR_256 | SQUARE | yball;
 	sprites[0].attribute1 = SIZE_8 | xball;
 	sprites[0].attribute2 = 512;
 
+	// Create the sprite for the player paddle.
 	sprites[1].attribute0 = COLOR_256 | TALL | ybar;
 	sprites[1].attribute1 = SIZE_16 | xbar;
 	sprites[1].attribute2 = 512 + 8;
+
+	// Create the sprite for the AI paddle.
+	sprites[2].attribute0 = COLOR_256 | TALL | yai;
+	sprites[2].attribute1 = SIZE_16 | xai;
+	sprites[2].attribute2 = 512 + 8;
+
+	// Create the sprite for the crack.
+	sprites[3].attribute0 = COLOR_256 | SQUARE | 160;
+	sprites[3].attribute1 = SIZE_8 | 240;
+	sprites[3].attribute2 = 512 + 24;
+
+	// Create the sprite for the player score.
+	sprites[4].attribute0 = COLOR_256 | SQUARE | 0;
+	sprites[4].attribute1 = SIZE_8 | 36;
+	sprites[4].attribute2 = 512 + 32;
+
+	// Create the sprite for the AI score.
+	sprites[5].attribute0 = COLOR_256 | SQUARE | 0;
+	sprites[5].attribute1 = SIZE_8 | 196;
+	sprites[5].attribute2 = 512 + 32;
 
 	// Start the game loop.
 	while(1)
 	{
 		MoveBall();
 		MoveBar();
+		MoveAI();
 		MoveSprite(&sprites[0], xball, yball);
 		MoveSprite(&sprites[1], xbar, ybar);
+		MoveSprite(&sprites[2], xai, yai);
 		WaitForVsync();
 		CopyOAM();
 	}
@@ -114,16 +161,20 @@ void MoveBall(void)
 	{
 		if(xball >= xMax)
 		{
-			ballDir = 3;
+			ballDir = 5;
 		}
 		else if(yball >= yMax)
 		{
 			ballDir = 1;
 		}
+		else if(xball >= xai - 6 && yball >= yai && yball <= yai + 32)
+		{
+			ballDir = 3;
+		}
 		else
 		{
-			xball += 3;
-			yball += 2;
+			xball += xspeed;
+			yball += yspeed;
 		}
 	}
 	
@@ -131,16 +182,20 @@ void MoveBall(void)
 	{
 		if(xball >= xMax)
 		{
-			ballDir = 2;
+			ballDir = 5;
 		}
 		else if(yball <= yMin)
 		{
 			ballDir = 0;
 		}
+		else if(xball >= xai - 6 && yball >= yai && yball <= yai + 32)
+		{
+			ballDir = 2;
+		}
 		else
 		{
-			xball += 3;
-			yball -= 2;
+			xball += xspeed;
+			yball -= yspeed;
 		}
 	}
 	
@@ -148,7 +203,7 @@ void MoveBall(void)
 	{
 		if(xball <= xMin)
 		{
-			ballDir = 1;
+			ballDir = 4;
 		}
 		else if(yball <= yMin)
 		{
@@ -160,8 +215,8 @@ void MoveBall(void)
 		}
 		else
 		{
-			xball -= 3;
-			yball -= 2;
+			xball -= xspeed;
+			yball -= yspeed;
 		}
 	}
 	
@@ -169,7 +224,7 @@ void MoveBall(void)
 	{
 		if(xball <= xMin)
 		{
-			ballDir = 0;
+			ballDir = 4;
 		}
 		else if(yball >= yMax)
 		{
@@ -181,21 +236,87 @@ void MoveBall(void)
 		}
 		else
 		{
-			xball -= 3;
-			yball += 2;
+			xball -= xspeed;
+			yball += yspeed;
 		}
+	}
+
+	if(ballDir == 4)
+	{
+		if(++aiScore == 10)
+		{
+			aiScore = 0;
+		}
+
+		sprites[5].attribute2 = 512 + 32 + (aiScore * 8);
+
+		sprites[3].attribute0 = COLOR_256 | SQUARE | yball;
+		sprites[3].attribute1 = SIZE_8 | 0;
+
+		ballDir = 6;
+	}
+	else if(ballDir == 5)
+	{
+		if(++playerScore == 10)
+		{
+			playerScore = 0;
+		}
+
+		sprites[4].attribute2 = 512 + 32 + ((playerScore % 10) * 8);
+
+		sprites[3].attribute0 = COLOR_256 | SQUARE | yball;
+		sprites[3].attribute1 = SIZE_8 | 232;
+
+		ballDir = 7;
 	}
 }
 
 // Move the bar sprite.
 void MoveBar(void)
 {
-	if(keyDown(KEY_DOWN) && ybar < yMax - 24)
+	if(ballDir == 6 || ballDir == 7)
 	{
-		ybar += 3;
+		if(keyDown(KEY_A))
+		{
+			if(ballDir == 6)
+			{
+				ballDir = 0;	
+			}
+			else if(ballDir = 7)
+			{
+				ballDir = 3;
+			}
+			
+			sprites[3].attribute0 = COLOR_256 | SQUARE | 160;
+			sprites[3].attribute1 = SIZE_8 | 240;
+		}
 	}
-	else if(keyDown(KEY_UP) && ybar > yMin)
+	else
 	{
-		ybar -= 3;
+		if(keyDown(KEY_DOWN) && ybar < yMax - 24)
+		{
+			ybar += 3;
+		}
+		else if(keyDown(KEY_UP) && ybar > yMin)
+		{
+			ybar -= 3;
+		}
+	}
+	
+	
+}
+
+void MoveAI(void)
+{
+	if(xball > (88 + rand() % 8))
+	{
+		if(yai + 12 < yball && yai && yai < yMax - 24)
+		{
+			yai += 3;
+		}
+		else if(yai > yball && yai)
+		{
+			yai -= 3;
+		}
 	}
 }

@@ -1,2 +1,5 @@
 # Exclude .elf files used in compilation.
 *.elf
+
+# Exclude .bin executables.
+*.bin
