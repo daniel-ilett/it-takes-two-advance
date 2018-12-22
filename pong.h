@@ -5,6 +5,8 @@
 void InitialiseSprites(void);
 void CopyOAM(void);
 void MoveSprite(OAMEntry* sp, int x, int y);
+
 void MoveBall(void);
+void MoveBar(void);
 
 #endif

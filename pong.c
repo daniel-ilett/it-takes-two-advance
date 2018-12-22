@@ -3,6 +3,7 @@
 #include "gba.h"
 #include "bg.h"
 #include "ball.h"
+#include "bar.h"
 
 #include "pong.h"
 
@@ -11,6 +12,9 @@ OAMEntry sprites[128];
 u16 xball = 30;
 u16 yball = 50;
 u8 ballDir = 0;
+
+u16 xbar = 10;
+u16 ybar = 10;
 
 u8 xMin = 8;
 u8 yMin = 8;
@@ -43,17 +47,24 @@ int main()
 
 	// Copy the ball pixel data to the first location in sprite data.
 	memcpy((u16*)0x06014000, &ballData, sizeof(ballData));
+	memcpy((u16*)0x06014100, &barData,  sizeof(barData));
 
 	// Now create the sprite.
-	sprites[0].attribute0 = COLOR_256 | SQUARE | 50;
-	sprites[0].attribute1 = SIZE_8 | 30;
+	sprites[0].attribute0 = COLOR_256 | SQUARE | yball;
+	sprites[0].attribute1 = SIZE_8 | xball;
 	sprites[0].attribute2 = 512;
+
+	sprites[1].attribute0 = COLOR_256 | TALL | ybar;
+	sprites[1].attribute1 = SIZE_16 | xbar;
+	sprites[1].attribute2 = 512 + 8;
 
 	// Start the game loop.
 	while(1)
 	{
 		MoveBall();
+		MoveBar();
 		MoveSprite(&sprites[0], xball, yball);
+		MoveSprite(&sprites[1], xbar, ybar);
 		WaitForVsync();
 		CopyOAM();
 	}
@@ -143,6 +154,10 @@ void MoveBall(void)
 		{
 			ballDir = 3;
 		}
+		else if(xball == xbar + 8 && yball >= ybar && yball <= ybar + 32)
+		{
+			ballDir = 1;
+		}
 		else
 		{
 			xball -= 3;
@@ -160,10 +175,27 @@ void MoveBall(void)
 		{
 			ballDir = 2;
 		}
+		else if(xball == xbar + 8 && yball >= ybar && yball <= ybar + 32)
+		{
+			ballDir = 0;
+		}
 		else
 		{
 			xball -= 3;
 			yball += 2;
 		}
+	}
+}
+
+// Move the bar sprite.
+void MoveBar(void)
+{
+	if(keyDown(KEY_DOWN) && ybar < yMax - 24)
+	{
+		ybar += 3;
+	}
+	else if(keyDown(KEY_UP) && ybar > yMin)
+	{
+		ybar -= 3;
 	}
 }
