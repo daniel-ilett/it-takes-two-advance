@@ -1,4 +1,4 @@
-// The main game loop is written here.
+// Where the action happens.
 
 #include "gba.h"
 #include "pong.h"
@@ -11,6 +11,9 @@
 #include "bar.h"
 #include "crack.h"
 #include "numbers.h"
+
+#include "items.h"
+#include "recipe.h"
 
 OAMEntry sprites[128];
 
