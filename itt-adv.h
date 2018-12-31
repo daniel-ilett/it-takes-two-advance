@@ -18,7 +18,7 @@ void setItemText(ItemName item);
 void drawResultBox(int visible);
 
 // Menu navigation functions.
-//void chooseCategory(CategoryName category);
+void chooseCategory(CategoryName category);
 
 // Crafting functions.
 void userChooseItem(ItemName item);

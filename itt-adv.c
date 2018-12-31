@@ -349,13 +349,15 @@ void drawResultBox(int visible)
 
 
 
-/*
+
+
 // Set the category of items to display to the player.
 void chooseCategory(CategoryName category)
 {
 
 }
-*/
+
+
 
 
 
