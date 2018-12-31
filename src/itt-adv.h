@@ -9,6 +9,7 @@
 // Sprite manipulation.
 void initialiseSprites(void);
 void moveSprite(OAMEntry* sp, int x, int y);
+void hideSprite(int spriteID);
 
 // Memory manipulation.
 void copyOAM(void);

@@ -19,26 +19,6 @@
 
 OAMEntry sprites[128];
 
-u16 xball = 30;
-u16 yball = 15;
-u8 xspeed = 4;
-u8 yspeed = 2;
-u8 ballDir = 0;
-
-u16 xbar = 10;
-u16 ybar = 10;
-
-u16 xai = 222;
-u16 yai = 10;
-
-u8 xMin = 8;
-u8 yMin = 8;
-u8 xMax = 224;
-u8 yMax = 144;
-
-u8 playerScore = 0;
-u8 aiScore = 0;
-
 // Application entry point.
 int main()
 {
@@ -83,18 +63,18 @@ int main()
 	memcpy((u16*)0x06014d00, &number9Data, 	sizeof(number9Data));
 
 	// Create the sprite for the ball.
-	sprites[0].attribute0 = COLOR_256 | SQUARE | yball;
-	sprites[0].attribute1 = SIZE_8 | xball;
+	sprites[0].attribute0 = COLOR_256 | SQUARE | 0;
+	sprites[0].attribute1 = SIZE_8 | 0;
 	sprites[0].attribute2 = 512;
 
 	// Create the sprite for the player paddle.
-	sprites[1].attribute0 = COLOR_256 | TALL | ybar;
-	sprites[1].attribute1 = SIZE_16 | xbar;
+	sprites[1].attribute0 = COLOR_256 | TALL | 0;
+	sprites[1].attribute1 = SIZE_16 | 0;
 	sprites[1].attribute2 = 512 + 8;
 
 	// Create the sprite for the AI paddle.
-	sprites[2].attribute0 = COLOR_256 | TALL | yai;
-	sprites[2].attribute1 = SIZE_16 | xai;
+	sprites[2].attribute0 = COLOR_256 | TALL | 0;
+	sprites[2].attribute1 = SIZE_16 | 0;
 	sprites[2].attribute2 = 512 + 8;
 
 	// Create the sprite for the crack.
@@ -115,9 +95,9 @@ int main()
 	// Start the game loop.
 	while(1)
 	{
-		moveSprite(&sprites[0], xball, yball);
-		moveSprite(&sprites[1], xbar, ybar);
-		moveSprite(&sprites[2], xai, yai);
+		moveSprite(&sprites[0], 0, 0);
+		moveSprite(&sprites[1], 0, 0);
+		moveSprite(&sprites[2], 0, 0);
 		WaitForVsync();
 		copyOAM();
 	}
@@ -125,15 +105,14 @@ int main()
 	return 0;
 }
 
-// Initialise and move sprites to (240, 160) so they are hidden at start.
+// Move all sprites to (240, 160) so they are hidden at start.
 void initialiseSprites(void)
 {
 	u16 loop;
 
 	for(loop = 0; loop < 128; ++loop)
 	{
-		sprites[loop].attribute0 = 160;
-		sprites[loop].attribute1 = 240;
+		hideSprite(loop);
 	}
 }
 
@@ -145,6 +124,12 @@ void moveSprite(OAMEntry* sp, int x, int y)
 
 	sp->attribute0 = sp->attribute0 & 0xFF00;
 	sp->attribute0 = sp->attribute0 | y;
+}
+
+// Move a sprite to (240, 160);
+void hideSprite(int spriteID)
+{
+	moveSprite(&sprites[spriteID], 240, 160);
 }
 
 // Copy data for each sprite to OAM memory.
