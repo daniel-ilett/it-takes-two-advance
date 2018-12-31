@@ -1,21 +1,21 @@
 // Where the action happens.
 
-#include "gba.h"
+#include "gba/gba.h"
 #include "itt-adv.h"
 
 // Include backgrounds.
-#include "bg.h"
+#include "sprite/bg.h"
 
 // Include sprites.
-#include "ball.h"
-#include "bar.h"
-#include "crack.h"
-#include "numbers.h"
+#include "sprite/ball.h"
+#include "sprite/bar.h"
+#include "sprite/crack.h"
+#include "sprite/numbers.h"
 
-#include "items.h"
-#include "recipe.h"
+#include "data/item.h"
+#include "data/recipe.h"
 
-#include "item_sprites.h"
+#include "sprite/item_sprites.h"
 
 OAMEntry sprites[128];
 

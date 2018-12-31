@@ -3,8 +3,8 @@
 #ifndef ITT_ADV_H
 #define ITT_ADV_H
 
-#include "items.h"
-#include "categories.h"
+#include "data/item.h"
+#include "data/category.h"
 
 // Sprite manipulation.
 void initialiseSprites(void);
@@ -12,7 +12,6 @@ void moveSprite(OAMEntry* sp, int x, int y);
 
 // Memory manipulation.
 void copyOAM(void);
-
 
 // Sprite display functions.
 void displayItem(int position, ItemName item);

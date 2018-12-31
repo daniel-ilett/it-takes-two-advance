@@ -2,7 +2,7 @@
 #ifndef RECIPE_H
 #define RECIPE_H
 
-#include "items.h"
+#include "item.h"
 
 typedef struct Recipe
 {
