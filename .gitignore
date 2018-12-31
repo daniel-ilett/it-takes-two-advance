@@ -3,3 +3,11 @@
 
 # Exclude .bin executables.
 *.bin
+
+# Exclude makefiles and batch files.
+*.bat
+*.make
+*.mk
+GNUmakefile
+Makefile
+makefile

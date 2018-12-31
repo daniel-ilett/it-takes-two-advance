@@ -1,7 +1,7 @@
 // Where the action happens.
 
 #include "gba.h"
-#include "pong.h"
+#include "itt-adv.h"
 
 // Include backgrounds.
 #include "bg.h"

@@ -1,6 +1,6 @@
 // Separate function definitions from pong.c.
-#ifndef PONG_H
-#define PONG_H
+#ifndef ITT_ADV_H
+#define ITT_ADV_H
 
 #include "items.h"
 
