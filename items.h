@@ -4,6 +4,9 @@
 
 typedef enum ItemName
 {
+	// Null item
+	None,
+
 	// Core.
 	Earth,
 	Fire,

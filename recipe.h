@@ -348,4 +348,29 @@ Recipe recipes[] =
 	{ Art, Ink, Paper }
 };
 
+// Cycle through all recipes to find the crafting result.
+ItemName checkRecipe(ItemName itemA, ItemName itemB)
+{
+	int i;
+	for(i = 0; i < recipes.length; ++i)
+	{
+		if(recipes[i].itemA == itemA)
+		{
+			if(recipes[i].itemB == itemB)
+			{
+				return recipes[i].result;
+			}
+		}
+		else if(recipes[i].itemB == itemA)
+		{
+			if(recipes[i].itemA == itemB)
+			{
+				return resipes[i].result;
+			}
+		}
+	}
+
+	return None;
+}
+
 #endif
