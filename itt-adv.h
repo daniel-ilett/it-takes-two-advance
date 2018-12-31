@@ -1,16 +1,18 @@
 // Separate function definitions from pong.c.
+
 #ifndef ITT_ADV_H
 #define ITT_ADV_H
 
 #include "items.h"
+#include "categories.h"
 
-void InitialiseSprites(void);
-void CopyOAM(void);
-void MoveSprite(OAMEntry* sp, int x, int y);
+// Sprite manipulation.
+void initialiseSprites(void);
+void moveSprite(OAMEntry* sp, int x, int y);
 
-void MoveBall(void);
-void MoveBar(void);
-void MoveAI(void);
+// Memory manipulation.
+void copyOAM(void);
+
 
 // Sprite display functions.
 void displayItem(int position, ItemName item);

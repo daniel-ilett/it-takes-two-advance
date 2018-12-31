@@ -39,8 +39,11 @@ u8 yMax = 144;
 u8 playerScore = 0;
 u8 aiScore = 0;
 
+// Application entry point.
 int main()
 {
+	initialiseSprites();
+
 	u16 loop;
 
 	SetMode(MODE_4 | BG2_ENABLE | OBJ_ENABLE | OBJ_MAP_1D);
@@ -65,6 +68,7 @@ int main()
 
 	// Copy the ball pixel data to the first location in sprite data.
 	memcpy((u16*)0x06014000, &ballData, 	sizeof(ballData));
+
 	memcpy((u16*)0x06014100, &barData,  	sizeof(barData));
 	memcpy((u16*)0x06014300, &crackData, 	sizeof(crackData));
 	memcpy((u16*)0x06014400, &number0Data, 	sizeof(number0Data));
@@ -111,21 +115,18 @@ int main()
 	// Start the game loop.
 	while(1)
 	{
-		MoveBall();
-		MoveBar();
-		MoveAI();
-		MoveSprite(&sprites[0], xball, yball);
-		MoveSprite(&sprites[1], xbar, ybar);
-		MoveSprite(&sprites[2], xai, yai);
+		moveSprite(&sprites[0], xball, yball);
+		moveSprite(&sprites[1], xbar, ybar);
+		moveSprite(&sprites[2], xai, yai);
 		WaitForVsync();
-		CopyOAM();
+		copyOAM();
 	}
 
 	return 0;
 }
 
 // Initialise and move sprites to (240, 160) so they are hidden at start.
-void InitialiseSprites(void)
+void initialiseSprites(void)
 {
 	u16 loop;
 
@@ -136,8 +137,18 @@ void InitialiseSprites(void)
 	}
 }
 
+// Move a sprite by an amount.
+void moveSprite(OAMEntry* sp, int x, int y)
+{
+	sp->attribute1 = sp->attribute1 & 0xFE00;
+	sp->attribute1 = sp->attribute1 | x;
+
+	sp->attribute0 = sp->attribute0 & 0xFF00;
+	sp->attribute0 = sp->attribute0 | y;
+}
+
 // Copy data for each sprite to OAM memory.
-void CopyOAM(void)
+void copyOAM(void)
 {
 	u16 loop;
 	u16* temp;
@@ -148,185 +159,6 @@ void CopyOAM(void)
 		OAM_Mem[loop] = temp[loop];
 	}
 }
-
-// Move a sprite by an amount.
-void MoveSprite(OAMEntry* sp, int x, int y)
-{
-	sp->attribute1 = sp->attribute1 & 0xFE00;
-	sp->attribute1 = sp->attribute1 | x;
-
-	sp->attribute0 = sp->attribute0 & 0xFF00;
-	sp->attribute0 = sp->attribute0 | y;
-}
-
-// Move the ball sprite.
-void MoveBall(void)
-{
-	if(ballDir == 0)
-	{
-		if(xball >= xMax)
-		{
-			ballDir = 5;
-		}
-		else if(yball >= yMax)
-		{
-			ballDir = 1;
-		}
-		else if(xball >= xai - 6 && yball >= yai && yball <= yai + 32)
-		{
-			ballDir = 3;
-		}
-		else
-		{
-			xball += xspeed;
-			yball += yspeed;
-		}
-	}
-	
-	if(ballDir == 1)
-	{
-		if(xball >= xMax)
-		{
-			ballDir = 5;
-		}
-		else if(yball <= yMin)
-		{
-			ballDir = 0;
-		}
-		else if(xball >= xai - 6 && yball >= yai && yball <= yai + 32)
-		{
-			ballDir = 2;
-		}
-		else
-		{
-			xball += xspeed;
-			yball -= yspeed;
-		}
-	}
-	
-	if(ballDir == 2)
-	{
-		if(xball <= xMin)
-		{
-			ballDir = 4;
-		}
-		else if(yball <= yMin)
-		{
-			ballDir = 3;
-		}
-		else if(xball == xbar + 8 && yball >= ybar && yball <= ybar + 32)
-		{
-			ballDir = 1;
-		}
-		else
-		{
-			xball -= xspeed;
-			yball -= yspeed;
-		}
-	}
-	
-	if(ballDir == 3)
-	{
-		if(xball <= xMin)
-		{
-			ballDir = 4;
-		}
-		else if(yball >= yMax)
-		{
-			ballDir = 2;
-		}
-		else if(xball == xbar + 8 && yball >= ybar && yball <= ybar + 32)
-		{
-			ballDir = 0;
-		}
-		else
-		{
-			xball -= xspeed;
-			yball += yspeed;
-		}
-	}
-
-	if(ballDir == 4)
-	{
-		if(++aiScore == 10)
-		{
-			aiScore = 0;
-		}
-
-		sprites[5].attribute2 = 512 + 32 + (aiScore * 8);
-
-		sprites[3].attribute0 = COLOR_256 | SQUARE | yball;
-		sprites[3].attribute1 = SIZE_8 | 0;
-
-		ballDir = 6;
-	}
-	else if(ballDir == 5)
-	{
-		if(++playerScore == 10)
-		{
-			playerScore = 0;
-		}
-
-		sprites[4].attribute2 = 512 + 32 + ((playerScore % 10) * 8);
-
-		sprites[3].attribute0 = COLOR_256 | SQUARE | yball;
-		sprites[3].attribute1 = SIZE_8 | 232;
-
-		ballDir = 7;
-	}
-}
-
-// Move the bar sprite.
-void MoveBar(void)
-{
-	if(ballDir == 6 || ballDir == 7)
-	{
-		if(keyDown(KEY_A))
-		{
-			if(ballDir == 6)
-			{
-				ballDir = 0;	
-			}
-			else if(ballDir = 7)
-			{
-				ballDir = 3;
-			}
-			
-			sprites[3].attribute0 = COLOR_256 | SQUARE | 160;
-			sprites[3].attribute1 = SIZE_8 | 240;
-		}
-	}
-	else
-	{
-		if(keyDown(KEY_DOWN) && ybar < yMax - 24)
-		{
-			ybar += 3;
-		}
-		else if(keyDown(KEY_UP) && ybar > yMin)
-		{
-			ybar -= 3;
-		}
-	}
-	
-	
-}
-
-void MoveAI(void)
-{
-	if(xball > (88 + rand() % 8))
-	{
-		if(yai + 12 < yball && yai && yai < yMax - 24)
-		{
-			yai += 3;
-		}
-		else if(yai > yball && yai)
-		{
-			yai -= 3;
-		}
-	}
-}
-
-
 
 // Display the chosen item in the relevant position.
 void displayItem(int position, ItemName item)
@@ -347,19 +179,11 @@ void drawResultBox(int visible)
 
 }
 
-
-
-
-
 // Set the category of items to display to the player.
 void chooseCategory(CategoryName category)
 {
 
 }
-
-
-
-
 
 // The user picks an item to try crafting.
 void userChooseItem(ItemName item)

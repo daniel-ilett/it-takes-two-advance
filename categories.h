@@ -1,4 +1,5 @@
 // A list of all categories.
+
 #ifndef CATEGORIES_H
 #define CATEGORIES_H
 
@@ -28,6 +29,6 @@ typedef enum CategoryName
 	C_OuterSpace,
 	C_Magic,
 	C_Knowledge
-}
+} CategoryName;
 
 #endif
