@@ -352,7 +352,7 @@ Recipe recipes[] =
 ItemName checkRecipe(ItemName itemA, ItemName itemB)
 {
 	int i;
-	for(i = 0; i < recipes.length; ++i)
+	for(i = 0; i < (sizeof(recipes)/sizeof(recipes[0])); ++i)
 	{
 		if(recipes[i].itemA == itemA)
 		{
@@ -365,7 +365,7 @@ ItemName checkRecipe(ItemName itemA, ItemName itemB)
 		{
 			if(recipes[i].itemA == itemB)
 			{
-				return resipes[i].result;
+				return recipes[i].result;
 			}
 		}
 	}

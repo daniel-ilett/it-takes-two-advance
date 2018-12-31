@@ -15,6 +15,8 @@
 #include "items.h"
 #include "recipe.h"
 
+#include "item_sprites.h"
+
 OAMEntry sprites[128];
 
 u16 xball = 30;
@@ -322,4 +324,57 @@ void MoveAI(void)
 			yai -= 3;
 		}
 	}
+}
+
+
+
+// Display the chosen item in the relevant position.
+void displayItem(int position, ItemName item)
+{
+	// Check if item is unlocked. If so, place its sprite.
+
+	// If not, select the empty sprite.
+}
+// Display text for the current item.
+void setItemText(ItemName item)
+{
+
+}
+
+// Display the results box?
+void drawResultBox(int visible)
+{
+
+}
+
+
+
+/*
+// Set the category of items to display to the player.
+void chooseCategory(CategoryName category)
+{
+
+}
+*/
+
+
+
+// The user picks an item to try crafting.
+void userChooseItem(ItemName item)
+{
+	// Do something to pick the item currently hovered.
+
+	// Check if both items are picked.
+}
+
+// The crafting was unsuccessful.
+void invalidCraft(void)
+{
+
+}
+
+// The crafting was successful so we can display a result.
+void validCraft(ItemName result)
+{
+
 }
