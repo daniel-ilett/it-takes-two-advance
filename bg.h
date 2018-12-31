@@ -2,6 +2,9 @@
 *       bg.h                                   *
 *          by dovotos pcx->gba program         *
 /**********************************************/
+#ifndef BG_H
+#define BG_H
+
 #define  bg_WIDTH   240
 #define  bg_HEIGHT  160
 
@@ -1955,4 +1958,6 @@ const u16 bgPalette[] = {
                     0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF,
                     0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF,
                     0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF,};
+
+#endif
                     

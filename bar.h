@@ -2,6 +2,9 @@
 *       bar.h                                   *
 *          by dovotos pcx->gba program         *
 /**********************************************/
+#ifndef BAR_H
+#define BAR_H
+
 #define  bar_WIDTH   8
 #define  bar_HEIGHT  32
 
@@ -48,4 +51,6 @@ const u16 barPalette[] = {
                     0x64DF, 0x7CDF, 0x019F, 0x199F, 0x319F, 0x4D9F, 0x659F, 0x7D9F, 0x027F, 0x1A7F,
                     0x327F, 0x4E7F, 0x667F, 0x7E7F, 0x033F, 0x1B3F, 0x333F, 0x4F3F, 0x673F, 0x7F3F,
                     0x03FF, 0x1BFF, 0x33FF, 0x4FFF, 0x67FF, 0x7FFF,};
+
+#endif
                     
