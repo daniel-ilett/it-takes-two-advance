@@ -11,11 +11,10 @@
 #include "sprite/bar.h"
 #include "sprite/crack.h"
 #include "sprite/numbers.h"
+#include "sprite/item_sprites.h"
 
 #include "data/item.h"
 #include "data/recipe.h"
-
-#include "sprite/item_sprites.h"
 
 OAMEntry sprites[128];
 
