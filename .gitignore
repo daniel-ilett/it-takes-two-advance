@@ -11,3 +11,6 @@
 GNUmakefile
 Makefile
 makefile
+
+# Exclude compiled .jar files from converter sub-project.
+./converter/*.jar

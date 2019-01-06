@@ -3,16 +3,20 @@
 #ifndef ITT_ADV_H
 #define ITT_ADV_H
 
-#include "data/item.h"
 #include "data/category.h"
+#include "data/item.h"
+
+void MoveBall(void);
+void MoveBar(void);
+void MoveAI(void);
 
 // Sprite manipulation.
-void initialiseSprites(void);
-void moveSprite(OAMEntry* sp, int x, int y);
+void InitialiseSprites(void);
+void MoveSprite(OAMEntry* sp, int x, int y);
 void hideSprite(int spriteID);
 
 // Memory manipulation.
-void copyOAM(void);
+void CopyOAM(void);
 
 // Sprite display functions.
 void displayItem(int position, ItemName item);

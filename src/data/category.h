@@ -1,4 +1,5 @@
 // A list of all categories.
+
 #ifndef CATEGORY_H
 #define CATEGORY_H
 
