@@ -6,17 +6,13 @@
 #include "data/category.h"
 #include "data/item.h"
 
-void MoveBall(void);
-void MoveBar(void);
-void MoveAI(void);
-
 // Sprite manipulation.
-void InitialiseSprites(void);
-void MoveSprite(OAMEntry* sp, int x, int y);
+void initialiseSprites(void);
+void moveSprite(OAMEntry* sp, int x, int y);
 void hideSprite(int spriteID);
 
 // Memory manipulation.
-void CopyOAM(void);
+void copyOAM(void);
 
 // Sprite display functions.
 void displayItem(int position, ItemName item);
