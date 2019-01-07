@@ -22,7 +22,7 @@ OAMEntry sprites[128];
 
 SpriteObj sprite_data[] = 
 {
-	// Row 1 of item palette.
+	// Row 1 of item palette. (x9)
 	{ .posX = 0, 	.posY = 0, 	.startPosX = 16, 	.startPosY = 80 },
 	{ .posX = 0, 	.posY = 0, 	.startPosX = 40, 	.startPosY = 80 },
 	{ .posX = 0, 	.posY = 0, 	.startPosX = 64, 	.startPosY = 80 },
@@ -33,7 +33,7 @@ SpriteObj sprite_data[] =
 	{ .posX = 0, 	.posY = 0, 	.startPosX = 184, 	.startPosY = 80 },
 	{ .posX = 0, 	.posY = 0, 	.startPosX = 208, 	.startPosY = 80 },
 
-	// Row 2 of item palette.
+	// Row 2 of item palette. (x9)
 	{ .posX = 0, 	.posY = 0, 	.startPosX = 16, 	.startPosY = 108 },
 	{ .posX = 0, 	.posY = 0, 	.startPosX = 40, 	.startPosY = 108 },
 	{ .posX = 0, 	.posY = 0, 	.startPosX = 64, 	.startPosY = 108 },
@@ -44,11 +44,35 @@ SpriteObj sprite_data[] =
 	{ .posX = 0, 	.posY = 0, 	.startPosX = 184, 	.startPosY = 108 },
 	{ .posX = 0, 	.posY = 0, 	.startPosX = 208, 	.startPosY = 108 },
 
-	// Row 3 of item palette.
+	// Row 3 of item palette. (x4)
 	{ .posX = 0, 	.posY = 0, 	.startPosX = 76, 	.startPosY = 132 },
 	{ .posX = 0, 	.posY = 0, 	.startPosX = 100, 	.startPosY = 132 },
 	{ .posX = 0, 	.posY = 0, 	.startPosX = 124, 	.startPosY = 132 },
 	{ .posX = 0, 	.posY = 0, 	.startPosX = 148, 	.startPosY = 132 },
+
+	// Text slots. (x22)
+	{ .posX = 0,	.posY = 0,	.startPosX = 32, 	.startPosY = 56  },
+	{ .posX = 0,	.posY = 0,	.startPosX = 40, 	.startPosY = 56  },
+	{ .posX = 0,	.posY = 0,	.startPosX = 48, 	.startPosY = 56  },
+	{ .posX = 0,	.posY = 0,	.startPosX = 56, 	.startPosY = 56  },
+	{ .posX = 0,	.posY = 0,	.startPosX = 64, 	.startPosY = 56  },
+	{ .posX = 0,	.posY = 0,	.startPosX = 72, 	.startPosY = 56  },
+	{ .posX = 0,	.posY = 0,	.startPosX = 80, 	.startPosY = 56  },
+	{ .posX = 0,	.posY = 0,	.startPosX = 88, 	.startPosY = 56  },
+	{ .posX = 0,	.posY = 0,	.startPosX = 96, 	.startPosY = 56  },
+	{ .posX = 0,	.posY = 0,	.startPosX = 104, 	.startPosY = 56  },
+	{ .posX = 0,	.posY = 0,	.startPosX = 112, 	.startPosY = 56  },
+	{ .posX = 0,	.posY = 0,	.startPosX = 120, 	.startPosY = 56  },
+	{ .posX = 0,	.posY = 0,	.startPosX = 128, 	.startPosY = 56  },
+	{ .posX = 0,	.posY = 0,	.startPosX = 136, 	.startPosY = 56  },
+	{ .posX = 0,	.posY = 0,	.startPosX = 144, 	.startPosY = 56  },
+	{ .posX = 0,	.posY = 0,	.startPosX = 152, 	.startPosY = 56  },
+	{ .posX = 0,	.posY = 0,	.startPosX = 160, 	.startPosY = 56  },
+	{ .posX = 0,	.posY = 0,	.startPosX = 168, 	.startPosY = 56  },
+	{ .posX = 0,	.posY = 0,	.startPosX = 176, 	.startPosY = 56  },
+	{ .posX = 0,	.posY = 0,	.startPosX = 184, 	.startPosY = 56  },
+	{ .posX = 0,	.posY = 0,	.startPosX = 192, 	.startPosY = 56  },
+	{ .posX = 0,	.posY = 0,	.startPosX = 200, 	.startPosY = 56  },
 };
 
 // Application entry point.
@@ -119,103 +143,25 @@ int main()
 	memcpy((u16*)0x06014d00, &number9Data, 	sizeof(number9Data));
 	*/
 
-	// First row of item tray sprites.
-	sprites[0].attribute0 = COLOR_256 | SQUARE | 10 * 8;
-	sprites[0].attribute1 = SIZE_16 | 2 * 8;
-	sprites[0].attribute2 = 512;
+	// Initialise item slot sprites.
+	for(loop = 0; loop < 22; ++loop)
+	{
+		sprites[loop].attribute0 = COLOR_256 | SQUARE | 0;
+		sprites[loop].attribute1 = SIZE_16 | 0;
+		sprites[loop].attribute2 = 512 + loop * 8;
+	}
 
-	sprites[1].attribute0 = COLOR_256 | SQUARE | 10 * 8;
-	sprites[1].attribute1 = SIZE_16 | 5 * 8;
-	sprites[1].attribute2 = 512 + 8;
-
-	sprites[2].attribute0 = COLOR_256 | SQUARE | 10 * 8;
-	sprites[2].attribute1 = SIZE_16 | 8 * 8;
-	sprites[2].attribute2 = 512 + 8 * 2;
-
-	sprites[3].attribute0 = COLOR_256 | SQUARE | 10 * 8;
-	sprites[3].attribute1 = SIZE_16 | 11 * 8;
-	sprites[3].attribute2 = 512 + 8 * 3;
-
-	sprites[4].attribute0 = COLOR_256 | SQUARE | 10 * 8;
-	sprites[4].attribute1 = SIZE_16 | 14 * 8;
-	sprites[4].attribute2 = 512 + 8 * 4;
-
-	sprites[5].attribute0 = COLOR_256 | SQUARE | 10 * 8;
-	sprites[5].attribute1 = SIZE_16 | 17 * 8;
-	sprites[5].attribute2 = 512 + 8 * 5;
-
-	sprites[6].attribute0 = COLOR_256 | SQUARE | 10 * 8;
-	sprites[6].attribute1 = SIZE_16 | 20 * 8;
-	sprites[6].attribute2 = 512 + 8 * 6;
-
-	sprites[7].attribute0 = COLOR_256 | SQUARE | 10 * 8;
-	sprites[7].attribute1 = SIZE_16 | 23 * 8;
-	sprites[7].attribute2 = 512 + 8 * 7;
-
-	sprites[8].attribute0 = COLOR_256 | SQUARE | 10 * 8;
-	sprites[8].attribute1 = SIZE_16 | 26 * 8;
-	sprites[8].attribute2 = 512 + 8 * 8;
-
-	// Second row of item tray sprites.
-	sprites[9].attribute0 = COLOR_256 | SQUARE | 13 * 8;
-	sprites[9].attribute1 = SIZE_16 | 2 * 8;
-	sprites[9].attribute2 = 512 + 8 * 9;
-
-	sprites[10].attribute0 = COLOR_256 | SQUARE | 13 * 8;
-	sprites[10].attribute1 = SIZE_16 | 5 * 8;
-	sprites[10].attribute2 = 512 + 8 * 10;
-
-	sprites[11].attribute0 = COLOR_256 | SQUARE | 13 * 8;
-	sprites[11].attribute1 = SIZE_16 | 8 * 8;
-	sprites[11].attribute2 = 512 + 8 * 11;
-
-	sprites[12].attribute0 = COLOR_256 | SQUARE | 13 * 8;
-	sprites[12].attribute1 = SIZE_16 | 11 * 8;
-	sprites[12].attribute2 = 512 + 8 * 12;
-
-	sprites[13].attribute0 = COLOR_256 | SQUARE | 13 * 8;
-	sprites[13].attribute1 = SIZE_16 | 14 * 8;
-	sprites[13].attribute2 = 512 + 8 * 13;
-
-	sprites[14].attribute0 = COLOR_256 | SQUARE | 13 * 8;
-	sprites[14].attribute1 = SIZE_16 | 17 * 8;
-	sprites[14].attribute2 = 512 + 8 * 14;
-
-	sprites[15].attribute0 = COLOR_256 | SQUARE | 13 * 8;
-	sprites[15].attribute1 = SIZE_16 | 20 * 8;
-	sprites[15].attribute2 = 512 + 8 * 15;
-
-	sprites[16].attribute0 = COLOR_256 | SQUARE | 13 * 8;
-	sprites[16].attribute1 = SIZE_16 | 23 * 8;
-	sprites[16].attribute2 = 512 + 8 * 16;
-
-	sprites[17].attribute0 = COLOR_256 | SQUARE | 13 * 8;
-	sprites[17].attribute1 = SIZE_16 | 26 * 8;
-	sprites[17].attribute2 = 512 + 8 * 17;
-
-	// Third row of item tray sprites.
-	sprites[18].attribute0 = COLOR_256 | SQUARE | 16 * 8;
-	sprites[18].attribute1 = SIZE_16 | 76;
-	sprites[18].attribute2 = 512 + 8 * 18;
-
-	sprites[19].attribute0 = COLOR_256 | SQUARE | 16 * 8;
-	sprites[19].attribute1 = SIZE_16 | 100;
-	sprites[19].attribute2 = 512 + 8 * 19;
-
-	sprites[20].attribute0 = COLOR_256 | SQUARE | 16 * 8;
-	sprites[20].attribute1 = SIZE_16 | 124;
-	sprites[20].attribute2 = 512 + 8 * 20;
-
-	sprites[21].attribute0 = COLOR_256 | SQUARE | 16 * 8;
-	sprites[21].attribute1 = SIZE_16 | 148;
-	sprites[21].attribute2 = 512 + 8 * 21;
+	// Initialise item name text slot sprites.
+	for(loop = 22; loop < 44; ++loop)
+	{
+		sprites[loop].attribute0 = COLOR_256 | SQUARE | 0;
+		sprites[loop].attribute1 = SIZE_16 | 0;
+		sprites[loop].attribute2 = sprites[21].attribute2 + (loop - 22) * 8;
+	}
 
 	// Start the game loop.
 	while(1)
 	{
-		//MoveSprite(&sprites[0], 80, 80);
-		//MoveSprite(&sprites[1], 100, 80);
-
 		WaitForVsync();
 		copyOAM();
 	}
