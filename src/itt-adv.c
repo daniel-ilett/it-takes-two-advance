@@ -16,7 +16,40 @@
 //#include "data/item.h"
 //#include "data/recipe.h"
 
+#include "sprite_obj.h"
+
 OAMEntry sprites[128];
+
+SpriteObj sprite_data[] = 
+{
+	// Row 1 of item palette.
+	{ .posX = 0, 	.posY = 0, 	.startPosX = 16, 	.startPosY = 80 },
+	{ .posX = 0, 	.posY = 0, 	.startPosX = 40, 	.startPosY = 80 },
+	{ .posX = 0, 	.posY = 0, 	.startPosX = 64, 	.startPosY = 80 },
+	{ .posX = 0, 	.posY = 0, 	.startPosX = 88, 	.startPosY = 80 },
+	{ .posX = 0, 	.posY = 0, 	.startPosX = 112, 	.startPosY = 80 },
+	{ .posX = 0, 	.posY = 0, 	.startPosX = 136, 	.startPosY = 80 },
+	{ .posX = 0, 	.posY = 0, 	.startPosX = 160, 	.startPosY = 80 },
+	{ .posX = 0, 	.posY = 0, 	.startPosX = 184, 	.startPosY = 80 },
+	{ .posX = 0, 	.posY = 0, 	.startPosX = 208, 	.startPosY = 80 },
+
+	// Row 2 of item palette.
+	{ .posX = 0, 	.posY = 0, 	.startPosX = 16, 	.startPosY = 108 },
+	{ .posX = 0, 	.posY = 0, 	.startPosX = 40, 	.startPosY = 108 },
+	{ .posX = 0, 	.posY = 0, 	.startPosX = 64, 	.startPosY = 108 },
+	{ .posX = 0, 	.posY = 0, 	.startPosX = 88, 	.startPosY = 108 },
+	{ .posX = 0, 	.posY = 0, 	.startPosX = 112, 	.startPosY = 108 },
+	{ .posX = 0, 	.posY = 0, 	.startPosX = 136, 	.startPosY = 108 },
+	{ .posX = 0, 	.posY = 0, 	.startPosX = 160, 	.startPosY = 108 },
+	{ .posX = 0, 	.posY = 0, 	.startPosX = 184, 	.startPosY = 108 },
+	{ .posX = 0, 	.posY = 0, 	.startPosX = 208, 	.startPosY = 108 },
+
+	// Row 3 of item palette.
+	{ .posX = 0, 	.posY = 0, 	.startPosX = 76, 	.startPosY = 132 },
+	{ .posX = 0, 	.posY = 0, 	.startPosX = 100, 	.startPosY = 132 },
+	{ .posX = 0, 	.posY = 0, 	.startPosX = 124, 	.startPosY = 132 },
+	{ .posX = 0, 	.posY = 0, 	.startPosX = 148, 	.startPosY = 132 },
+};
 
 // Application entry point.
 int main()

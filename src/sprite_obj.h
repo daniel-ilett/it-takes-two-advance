@@ -7,6 +7,9 @@ typedef struct SpriteObj
 {
 	u8 posX;
 	u8 posY;
+
+	u8 startPosX;
+	u8 startPosY;
 } SpriteObj;
 
 #endif
