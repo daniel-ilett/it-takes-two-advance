@@ -1,4 +1,4 @@
-// Separate function definitions from pong.c.
+// Separate function definitions from itt-adv.c.
 
 #ifndef ITT_ADV_H
 #define ITT_ADV_H
@@ -21,10 +21,14 @@ void drawResultBox(int visible);
 
 // Menu navigation functions.
 void chooseCategory(CategoryName category);
+void returnToCategories();
 
 // Crafting functions.
 void userChooseItem(ItemName item);
 void invalidCraft(void);
 void validCraft(ItemName result);
+
+// Progress functions.
+void unlockItem(ItemName itemName);
 
 #endif

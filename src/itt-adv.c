@@ -13,12 +13,15 @@
 #include "sprite/numbers.h"
 #include "sprite/item_sprites.h"
 
-//#include "data/item.h"
-//#include "data/recipe.h"
+#include "data/item.h"
+#include "data/recipe.h"
 
 #include "sprite_obj.h"
+#include "state.h"
 
 OAMEntry sprites[128];
+
+State program_state = CategorySelect;
 
 SpriteObj sprite_data[] = 
 {
