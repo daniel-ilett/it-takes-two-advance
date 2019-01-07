@@ -155,9 +155,30 @@ int main()
 	for(loop = 22; loop < 44; ++loop)
 	{
 		sprites[loop].attribute0 = COLOR_256 | SQUARE | 0;
-		sprites[loop].attribute1 = SIZE_16 | 0;
-		sprites[loop].attribute2 = sprites[21].attribute2 + (loop - 22) * 8;
+		sprites[loop].attribute1 = SIZE_8 | 0;
+		sprites[loop].attribute2 = sprites[21].attribute2 + (loop - 21) * 8;
 	}
+
+	// Initialise progress text slot sprites.
+	for(loop = 44; loop < 51; ++loop)
+	{
+		sprites[loop].attribute0 = COLOR_256 | SQUARE | 0;
+		sprites[loop].attribute1 = SIZE_8 | 0;
+		sprites[loop].attribute2 = sprites[43].attribute2 + (loop - 43) * 8;
+	}
+
+	// Initialise chosen item sprites.
+	for(loop = 51; loop < 53; ++loop)
+	{
+		sprites[loop].attribute0 = COLOR_256 | SQUARE | 0;
+		sprites[loop].attribute1 = SIZE_16 | 0;
+		sprites[loop].attribute2 = sprites[50].attribute2 + (loop - 50) * 8;
+	}
+
+	// Initialise cursor sprite.
+	sprites[53].attribute0 = COLOR_256 | SQUARE | 0;
+	sprites[53].attribute1 = SIZE_16 | 0;
+	sprites[53].attribute2 = sprites[52].attribute2 + 8;
 
 	// Start the game loop.
 	while(1)
