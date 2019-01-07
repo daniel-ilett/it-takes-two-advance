@@ -23,63 +23,77 @@ OAMEntry sprites[128];
 SpriteObj sprite_data[] = 
 {
 	// Row 1 of item palette. (x9)
-	{ .posX = 0, 	.posY = 0, 	.startPosX = 16, 	.startPosY = 80 },
-	{ .posX = 0, 	.posY = 0, 	.startPosX = 40, 	.startPosY = 80 },
-	{ .posX = 0, 	.posY = 0, 	.startPosX = 64, 	.startPosY = 80 },
-	{ .posX = 0, 	.posY = 0, 	.startPosX = 88, 	.startPosY = 80 },
-	{ .posX = 0, 	.posY = 0, 	.startPosX = 112, 	.startPosY = 80 },
-	{ .posX = 0, 	.posY = 0, 	.startPosX = 136, 	.startPosY = 80 },
-	{ .posX = 0, 	.posY = 0, 	.startPosX = 160, 	.startPosY = 80 },
-	{ .posX = 0, 	.posY = 0, 	.startPosX = 184, 	.startPosY = 80 },
-	{ .posX = 0, 	.posY = 0, 	.startPosX = 208, 	.startPosY = 80 },
+	{ .startPosX = 16, 	.startPosY = 80 },
+	{ .startPosX = 40, 	.startPosY = 80 },
+	{ .startPosX = 64, 	.startPosY = 80 },
+	{ .startPosX = 88, 	.startPosY = 80 },
+	{ .startPosX = 112, .startPosY = 80 },
+	{ .startPosX = 136, .startPosY = 80 },
+	{ .startPosX = 160, .startPosY = 80 },
+	{ .startPosX = 184, .startPosY = 80 },
+	{ .startPosX = 208, .startPosY = 80 },
 
 	// Row 2 of item palette. (x9)
-	{ .posX = 0, 	.posY = 0, 	.startPosX = 16, 	.startPosY = 108 },
-	{ .posX = 0, 	.posY = 0, 	.startPosX = 40, 	.startPosY = 108 },
-	{ .posX = 0, 	.posY = 0, 	.startPosX = 64, 	.startPosY = 108 },
-	{ .posX = 0, 	.posY = 0, 	.startPosX = 88, 	.startPosY = 108 },
-	{ .posX = 0, 	.posY = 0, 	.startPosX = 112, 	.startPosY = 108 },
-	{ .posX = 0, 	.posY = 0, 	.startPosX = 136, 	.startPosY = 108 },
-	{ .posX = 0, 	.posY = 0, 	.startPosX = 160, 	.startPosY = 108 },
-	{ .posX = 0, 	.posY = 0, 	.startPosX = 184, 	.startPosY = 108 },
-	{ .posX = 0, 	.posY = 0, 	.startPosX = 208, 	.startPosY = 108 },
+	{ .startPosX = 16, 	.startPosY = 108 },
+	{ .startPosX = 40, 	.startPosY = 108 },
+	{ .startPosX = 64, 	.startPosY = 108 },
+	{ .startPosX = 88, 	.startPosY = 108 },
+	{ .startPosX = 112, .startPosY = 108 },
+	{ .startPosX = 136, .startPosY = 108 },
+	{ .startPosX = 160, .startPosY = 108 },
+	{ .startPosX = 184, .startPosY = 108 },
+	{ .startPosX = 208, .startPosY = 108 },
 
 	// Row 3 of item palette. (x4)
-	{ .posX = 0, 	.posY = 0, 	.startPosX = 76, 	.startPosY = 132 },
-	{ .posX = 0, 	.posY = 0, 	.startPosX = 100, 	.startPosY = 132 },
-	{ .posX = 0, 	.posY = 0, 	.startPosX = 124, 	.startPosY = 132 },
-	{ .posX = 0, 	.posY = 0, 	.startPosX = 148, 	.startPosY = 132 },
+	{ .startPosX = 76, 	.startPosY = 132 },
+	{ .startPosX = 100, .startPosY = 132 },
+	{ .startPosX = 124, .startPosY = 132 },
+	{ .startPosX = 148, .startPosY = 132 },
 
 	// Text slots. (x22)
-	{ .posX = 0,	.posY = 0,	.startPosX = 32, 	.startPosY = 56  },
-	{ .posX = 0,	.posY = 0,	.startPosX = 40, 	.startPosY = 56  },
-	{ .posX = 0,	.posY = 0,	.startPosX = 48, 	.startPosY = 56  },
-	{ .posX = 0,	.posY = 0,	.startPosX = 56, 	.startPosY = 56  },
-	{ .posX = 0,	.posY = 0,	.startPosX = 64, 	.startPosY = 56  },
-	{ .posX = 0,	.posY = 0,	.startPosX = 72, 	.startPosY = 56  },
-	{ .posX = 0,	.posY = 0,	.startPosX = 80, 	.startPosY = 56  },
-	{ .posX = 0,	.posY = 0,	.startPosX = 88, 	.startPosY = 56  },
-	{ .posX = 0,	.posY = 0,	.startPosX = 96, 	.startPosY = 56  },
-	{ .posX = 0,	.posY = 0,	.startPosX = 104, 	.startPosY = 56  },
-	{ .posX = 0,	.posY = 0,	.startPosX = 112, 	.startPosY = 56  },
-	{ .posX = 0,	.posY = 0,	.startPosX = 120, 	.startPosY = 56  },
-	{ .posX = 0,	.posY = 0,	.startPosX = 128, 	.startPosY = 56  },
-	{ .posX = 0,	.posY = 0,	.startPosX = 136, 	.startPosY = 56  },
-	{ .posX = 0,	.posY = 0,	.startPosX = 144, 	.startPosY = 56  },
-	{ .posX = 0,	.posY = 0,	.startPosX = 152, 	.startPosY = 56  },
-	{ .posX = 0,	.posY = 0,	.startPosX = 160, 	.startPosY = 56  },
-	{ .posX = 0,	.posY = 0,	.startPosX = 168, 	.startPosY = 56  },
-	{ .posX = 0,	.posY = 0,	.startPosX = 176, 	.startPosY = 56  },
-	{ .posX = 0,	.posY = 0,	.startPosX = 184, 	.startPosY = 56  },
-	{ .posX = 0,	.posY = 0,	.startPosX = 192, 	.startPosY = 56  },
-	{ .posX = 0,	.posY = 0,	.startPosX = 200, 	.startPosY = 56  },
+	{ .startPosX = 32, 	.startPosY = 56  },
+	{ .startPosX = 40, 	.startPosY = 56  },
+	{ .startPosX = 48, 	.startPosY = 56  },
+	{ .startPosX = 56, 	.startPosY = 56  },
+	{ .startPosX = 64, 	.startPosY = 56  },
+	{ .startPosX = 72, 	.startPosY = 56  },
+	{ .startPosX = 80, 	.startPosY = 56  },
+	{ .startPosX = 88, 	.startPosY = 56  },
+	{ .startPosX = 96, 	.startPosY = 56  },
+	{ .startPosX = 104, .startPosY = 56  },
+	{ .startPosX = 112, .startPosY = 56  },
+	{ .startPosX = 120, .startPosY = 56  },
+	{ .startPosX = 128, .startPosY = 56  },
+	{ .startPosX = 136, .startPosY = 56  },
+	{ .startPosX = 144, .startPosY = 56  },
+	{ .startPosX = 152, .startPosY = 56  },
+	{ .startPosX = 160, .startPosY = 56  },
+	{ .startPosX = 168, .startPosY = 56  },
+	{ .startPosX = 176, .startPosY = 56  },
+	{ .startPosX = 184, .startPosY = 56  },
+	{ .startPosX = 192, .startPosY = 56  },
+	{ .startPosX = 200, .startPosY = 56  },
+
+	// Progress text slots. (x7)
+	{ .startPosX = 176, .startPosY = 8   },
+	{ .startPosX = 184, .startPosY = 8   },
+	{ .startPosX = 192, .startPosY = 8   },
+	{ .startPosX = 200, .startPosY = 8   },
+	{ .startPosX = 208, .startPosY = 8   },
+	{ .startPosX = 216, .startPosY = 8   },
+	{ .startPosX = 224, .startPosY = 8   },
+
+	// Picked item sprites. (x2)
+	{ .startPosX = 100, .startPosY = 24  },
+	{ .startPosX = 124, .startPosY = 24  },
+
+	// Cursor slot. (x1)
+	{ .startPosX = 16, 	.startPosY = 96  },
 };
 
 // Application entry point.
 int main()
 {
-	initialiseSprites();
-
 	u16 loop;
 
 	SetMode(MODE_4 | BG2_ENABLE | OBJ_ENABLE | OBJ_MAP_1D);
@@ -176,9 +190,11 @@ int main()
 	}
 
 	// Initialise cursor sprite.
-	sprites[53].attribute0 = COLOR_256 | SQUARE | 0;
+	sprites[53].attribute0 = COLOR_256 | WIDE | 0;
 	sprites[53].attribute1 = SIZE_16 | 0;
 	sprites[53].attribute2 = sprites[52].attribute2 + 8;
+
+	initialiseSprites();
 
 	// Start the game loop.
 	while(1)
@@ -190,14 +206,21 @@ int main()
 	return 0;
 }
 
-// Move all sprites to (240, 160) so they are hidden at start.
+// Move all sprites to their starting positions.
 void initialiseSprites(void)
 {
 	u16 loop;
 
 	for(loop = 0; loop < 128; ++loop)
 	{
-		hideSprite(loop);
+		if(loop < 54)
+		{
+			moveSprite(&sprites[loop], sprite_data[loop].startPosX, sprite_data[loop].startPosY);
+		}
+		else
+		{
+			hideSprite(loop);
+		}
 	}
 }
 
