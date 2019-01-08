@@ -3,9 +3,6 @@
 #include "gba/gba.h"
 #include "itt-adv.h"
 
-// Include backgrounds.
-#include "sprite/bg.h"
-
 // Include sprites.
 #include "sprite/ball.h"
 #include "sprite/bar.h"
@@ -106,19 +103,14 @@ int main()
 	// Transfer the item palette into palette memory.
 	for(loop = 0; loop < 256; ++loop)
 	{
-		OBJ_PaletteMem[loop] = itemPalette[loop];
-	}
-
-	// Transfer background palette data to palette memory.
-	for(loop = 0; loop < 256; ++loop)
-	{
-		BG_PaletteMem[loop] = itemPalette[loop];
+		OBJ_PaletteMem[loop] = BG_PaletteMem[loop] = itemPalette[loop];
 	}
 
 	// Transfer background pixel data into VRAM.
+	// 0x3838 represents full-white.
 	for(loop = 0; loop < (120 * 160); ++loop)
 	{
-		FrontBuffer[loop] = bgData[loop];
+		FrontBuffer[loop] = 0x3838;
 	}
 
 	// Copy the ball pixel data to the first location in sprite data.
