@@ -112,7 +112,7 @@ int main()
 	// Transfer background palette data to palette memory.
 	for(loop = 0; loop < 256; ++loop)
 	{
-		BG_PaletteMem[loop] = bgPalette[loop];
+		BG_PaletteMem[loop] = itemPalette[loop];
 	}
 
 	// Transfer background pixel data into VRAM.
