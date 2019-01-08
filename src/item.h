@@ -15,7 +15,7 @@ typedef struct ItemData
 // Keep all item data together in one place.
 const ItemData itemData[] = 
 {
-	{ "Not Unlocked", tx_LockedData },
+	{ "Not Unlocked", tx_NoneData },
 
 	{ "Earth", tx_EarthData },
 	{ "Fire", tx_FireData },
