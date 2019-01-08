@@ -5,19 +5,20 @@
 
 #include "sprite/item_sprites.h"
 
+// Define a struct to hold together all data related to an item.
 typedef struct ItemData
 {
 	const char itemName[23];
 	const u16 *itemSprite;
 } ItemData;
 
+// Keep all item data together in one place.
 const ItemData itemData[] = 
 {
 	{ "Not Unlocked", tx_LockedData },
 
 	{ "Earth", tx_EarthData },
 	{ "Fire", tx_FireData },
-	/*
 	{ "Water", tx_WaterData },
 	{ "Air", tx_AirData },
 
@@ -300,9 +301,9 @@ const ItemData itemData[] =
 	{ "History", tx_HistoryData },
 	{ "Language", tx_LanguageData },
 	{ "Art", tx_ArtData }
-	*/
 };
 
+// Enumerate the name of each item.
 typedef enum ItemName
 {
 	// Null item

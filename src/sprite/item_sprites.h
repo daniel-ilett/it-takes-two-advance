@@ -99,4 +99,7 @@ const u16 itemPalette[] = {
      0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
 };
 
+// Define the size of an item sprite so we dont need to recalculate it.
+const u16 itemSpriteSize = sizeof(tx_LockedData);
+
 #endif

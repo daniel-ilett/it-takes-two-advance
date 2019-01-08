@@ -120,7 +120,8 @@ int main()
 	}
 
 	// Copy the ball pixel data to the first location in sprite data.
-	memcpy((u16*)0x06014000, &tx_LockedData, sizeof(tx_LockedData));
+	//memcpy((u16*)0x06014000, &tx_LockedData, sizeof(tx_LockedData));
+	memcpy((u16*)0x06014000, itemData[0].itemSprite, itemSpriteSize);
 	memcpy((u16*)0x06014100, &tx_FireData, sizeof(tx_FireData));
 	memcpy((u16*)0x06014200, &tx_WaterData, sizeof(tx_WaterData));
 	memcpy((u16*)0x06014300, &tx_OreData, sizeof(tx_OreData));
