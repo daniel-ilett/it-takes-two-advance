@@ -3,6 +3,16 @@
 #ifndef ITEM_H
 #define ITEM_H
 
+#include "../sprite/item_sprites.h"
+
+/*
+typedef struct ItemData
+{
+	char itemName[22];
+	u16 *itemSprite;
+} ItemData;
+*/
+
 typedef enum ItemName
 {
 	// Null item
@@ -608,12 +618,318 @@ const char *itemStrings[] =
 	"Art"
 };
 
-/*
-// Structure containing data about the item.
-typedef struct ItemData
+const u16 *itemSprites[] = 
 {
-	char name[22];
-} ItemData;
-*/
+	// Null item
+	//None,
+
+	// Core.
+	tx_EarthData,
+	tx_FireData,
+	tx_WaterData,
+	tx_AirData,
+
+	// Earth Minerals.
+	tx_LavaData,
+	tx_SteamData,
+	tx_DustData,
+	tx_MudData,
+	tx_SoilData,
+	tx_RockData,
+	tx_OreData,
+	tx_FlintstoneData,
+	tx_GemstoneData,
+	tx_SandData,
+	tx_ClayData,
+	tx_IceData,
+	tx_SaltData,
+	tx_SulphurData,
+
+	// Metals.
+	tx_IronData,
+	tx_CopperData,
+	tx_LeadData,
+	tx_GoldData,
+	tx_SilverData,
+	tx_ElectrumData,
+	tx_UraniumData,
+	tx_MercuryData,
+	tx_MithrilData,
+
+	// Gems.
+	tx_RubyData,
+	tx_SapphireData,
+	tx_EmeraldData,
+	tx_TopazData,
+	tx_OnyxData,
+	tx_OpalData,
+	tx_DiamondData,
+
+	// Life.
+	tx_LifeData,
+	tx_BacteriaData,
+	tx_AlgaeData,
+	tx_MushroomData,
+	tx_LichenData,
+
+	// Plant Kingdom.
+	tx_SeedsData,
+	tx_TreeData,
+	tx_BushData,
+	tx_FlowerData,
+	tx_MossData,
+	tx_GrassData,
+	tx_VineData,
+	tx_ReedsData,
+	tx_PapyrusData,
+	tx_WheatData,
+
+	// Animal Kingdom.
+	tx_BirdData,
+	tx_DuckData,
+	tx_PhoenixData,
+	tx_MammalData,
+	tx_MonkeyData,
+	tx_HumanData,
+	tx_SheepData,
+	tx_PigData,
+	tx_CowData,
+	tx_ChickenData,
+	tx_HorseData,
+
+	// Sealife.
+	tx_FishData,
+	tx_PufferfishData,
+	tx_CoralData,
+	tx_SeaweedData,
+	tx_SquidData,
+
+	// Almost Human.
+	tx_DeathData,
+	tx_GolemData,
+	tx_ZombieData,
+	tx_VampireData,
+	tx_GhostData,
+
+	// Plant Products.
+	tx_AppleData,
+	tx_ChestnutData,
+	tx_StickData,
+	tx_BarkData,
+	tx_BerriesData,
+	tx_FlourData,
+	tx_ChiliData,
+	tx_TeaData,
+	tx_CoffeeData,
+	tx_TrufflesData,
+	tx_AlcoholData,
+
+	// Animal Products.
+	tx_FeatherData,
+	tx_MeatData,
+	tx_BloodData,
+	tx_SkinData,
+	tx_LeatherData,
+	tx_LardData,
+	tx_EggData,
+	tx_MilkData,
+	tx_CheeseData,
+	tx_WoolData,
+	tx_InkData,
+
+	// Biomes.
+	tx_MountainData,
+	tx_VolcanoData,
+	tx_GeyserData,
+	tx_CraterData,
+	tx_RiverData,
+	tx_StreamData,
+	tx_SeaData,
+	tx_BeachData,
+	tx_LakeData,
+	tx_SwampData,
+	tx_MarshData,
+	tx_FieldData,
+	tx_HillData,
+	tx_ForestData,
+	tx_FarmlandData,
+	tx_GlacierData,
+	tx_DesertData,
+
+	// Forces of Nature.
+	tx_SkyData,
+	tx_SunData,
+	tx_CloudData,
+	tx_RainData,
+	tx_SnowData,
+	tx_StormData,
+	tx_LightningData,
+	tx_TornadoData,
+	tx_FireTornadoData,
+	tx_WindData,
+	tx_RainbowData,
+	tx_EarthquakeData,
+	tx_FloodData,
+	tx_TsunamiData,
+	tx_HurricaneData,
+	tx_EruptionData,
+
+	// Seasons.
+	tx_SpringData,
+	tx_SummerData,
+	tx_AutumnData,
+	tx_WinterData,
+
+	// Industrial.
+	tx_SparkData,
+	tx_AnvilData,
+	tx_KilnData,
+	tx_BlastFurnaceData,
+	tx_MachineData,
+	tx_LoomData,
+	tx_OilData,
+	tx_CoalData,
+	tx_MagnetData,
+	tx_GearData,
+	tx_WireData,
+	tx_PetrolData,
+	tx_RocketFuelData,
+
+	// Raw Materials.
+	tx_WoodData,
+	tx_CharcoalData,
+	tx_AshData,
+	tx_LyeData,
+	tx_BrickData,
+	tx_ConcreteData,
+	tx_RubberData,
+	tx_CottonData,
+	tx_FibreData,
+	tx_StringData,
+	tx_ElasticData,
+	tx_ClothData,
+	tx_CeramicData,
+	tx_GlassData,
+	tx_PaperData,
+	tx_PlasticData,
+	tx_FertiliserData,
+	tx_SaltpetreData,
+	tx_GunpowderData,
+
+	// Artisan Goods.
+	tx_RopeData,
+	tx_WheelData,
+	tx_SoapData,
+	tx_ClothesData,
+	tx_CrownData,
+	tx_HayBaleData,
+	tx_QuillData,
+	tx_PencilData,
+	tx_LetterData,
+	tx_BookData,
+	tx_MoneyData,
+	tx_LightBulbData,
+	tx_IronBarData,
+	tx_IronBallData,
+	tx_SawbladeData,
+	tx_TracksData,
+	tx_BalloonData,
+	tx_CakeData,
+
+	// Weaponry.
+	tx_SwordData,
+	tx_BowData,
+	tx_AxeData,
+	tx_PickaxeData,
+	tx_ChainsawData,
+	tx_ArrowData,
+	tx_SpearData,
+	tx_KnifeData,
+	tx_ShearsData,
+	tx_HandgunData,
+	tx_RifleData,
+	tx_SubmachineGunData,
+	tx_BayonetData,
+	tx_TNTData,
+	tx_CannonData,
+	tx_MissileData,
+	tx_NuclearWarheadData,
+	tx_PoisonData,
+	tx_DepthChargeData,
+	tx_TorpedoData,
+	tx_TrebuchetData,
+	tx_SiegeRamData,
+
+	// Transport.
+	tx_SteamEngineData,
+	tx_CombustionEngineData,
+	tx_BiplaneData,
+	tx_AeroplaneData,
+	tx_BoatData,
+	tx_ShipData,
+	tx_PirateShipData,
+	tx_SteamShipData,
+	tx_GalleonData,
+	tx_AircraftCarrierData,
+	tx_SubmarineData,
+	tx_CartData,
+	tx_ChariotData,
+	tx_CarData,
+	tx_BicycleData,
+	tx_MotorcycleData,
+	tx_TrainData,
+	tx_RocketData,
+	tx_SpaceshipData,
+
+	// Buildings.
+	tx_HouseData,
+	tx_MansionData,
+	tx_SkyscraperData,
+	tx_TownData,
+	tx_CityData,
+	tx_ChurchData,
+	tx_CathedralData,
+	tx_FarmhouseData,
+	tx_BarnData,
+
+	// Outer Space.
+	tx_SpaceData,
+	tx_TimeData,
+	tx_MeteorData,
+	tx_MeteorShowerData,
+	tx_AsteroidData,
+	tx_CometData,
+	tx_WorldData,
+	tx_MoonData,
+	tx_StarsData,
+	tx_GalaxyData,
+	tx_SupernovaData,
+	tx_DarkMatterData,
+	tx_UniverseData,
+	tx_VoidData,
+	tx_BlackHoleData,
+	tx_LightData,
+	tx_DarkData,
+	tx_SatelliteData,
+
+	// Magic.
+	tx_MagicData,
+	tx_PhilosophersStoneData,
+	tx_RuneData,
+	tx_StaffData,
+	tx_WizardData,
+
+	// Knowledge.
+	tx_ScienceData,
+	tx_TechnologyData,
+	tx_EngineeringData,
+	tx_GeographyData,
+	tx_GeologyData,
+	tx_AlchemyData,
+	tx_ReligionData,
+	tx_HistoryData,
+	tx_LanguageData,
+	tx_ArtData
+};
 
 #endif
