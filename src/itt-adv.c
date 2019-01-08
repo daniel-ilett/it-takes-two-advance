@@ -4,9 +4,6 @@
 #include "itt-adv.h"
 
 // Include sprites.
-#include "sprite/ball.h"
-#include "sprite/bar.h"
-#include "sprite/crack.h"
 #include "sprite/numbers.h"
 //#include "sprite/item_sprites.h"
 
