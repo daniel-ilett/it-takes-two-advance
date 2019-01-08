@@ -13,8 +13,8 @@
 #include "sprite/numbers.h"
 #include "sprite/item_sprites.h"
 
-#include "data/item.h"
-#include "data/recipe.h"
+#include "recipe.h"
+#include "item.h"
 
 #include "sprite_obj.h"
 #include "state.h"
@@ -120,7 +120,7 @@ int main()
 	}
 
 	// Copy the ball pixel data to the first location in sprite data.
-	memcpy((u16*)0x06014000, &tx_EarthData, sizeof(tx_EarthData));
+	memcpy((u16*)0x06014000, &tx_LockedData, sizeof(tx_LockedData));
 	memcpy((u16*)0x06014100, &tx_FireData, sizeof(tx_FireData));
 	memcpy((u16*)0x06014200, &tx_WaterData, sizeof(tx_WaterData));
 	memcpy((u16*)0x06014300, &tx_OreData, sizeof(tx_OreData));
@@ -260,6 +260,7 @@ void copyOAM(void)
 void displayItem(int position, ItemName item)
 {
 	// Check if item is unlocked. If so, place its sprite.
+
 
 	// If not, select the empty sprite.
 }

@@ -1,6 +1,6 @@
 // Metals group sprite data.
 
-#ifndef GROUP_METALS_G
+#ifndef GROUP_METALS_H
 #define GROUP_METALS_H
 
 const u16 tx_IronData[] = {

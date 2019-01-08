@@ -3,8 +3,8 @@
 #ifndef ITT_ADV_H
 #define ITT_ADV_H
 
-#include "data/category.h"
-#include "data/item.h"
+#include "category.h"
+#include "item.h"
 
 // Sprite manipulation.
 void initialiseSprites(void);

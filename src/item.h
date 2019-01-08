@@ -3,15 +3,7 @@
 #ifndef ITEM_H
 #define ITEM_H
 
-#include "../sprite/item_sprites.h"
-
-/*
-typedef struct ItemData
-{
-	char itemName[22];
-	u16 *itemSprite;
-} ItemData;
-*/
+#include "sprite/item_sprites.h"
 
 typedef enum ItemName
 {
@@ -618,6 +610,7 @@ const char *itemStrings[] =
 	"Art"
 };
 
+// References to all item sprites.
 const u16 *itemSprites[] = 
 {
 	// Null item
