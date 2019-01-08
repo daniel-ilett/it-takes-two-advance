@@ -7,20 +7,21 @@
 #include "item.h"
 
 // Sprite manipulation.
+void initialiseGame(void);
 void initialiseSprites(void);
-void moveSprite(OAMEntry* sp, int x, int y);
-void hideSprite(int spriteID);
+void moveSprite(OAMEntry* sp, u8 x, u8 y);
+void showSprite(u8 spriteID);
+void hideSprite(u8 spriteID);
 
 // Memory manipulation.
 void copyOAM(void);
 
 // Sprite display functions.
-void displayItem(int position, u16 itemID);
-void setItemText(u16 itemID);
-void drawResultBox(int visible);
+void displayItem(u8 spriteID, u16 itemID);
+void setText(char* text);
 
 // Menu navigation functions.
-void chooseCategory(u16 categoryID);
+void chooseCategory(u8 categoryID);
 void returnToCategories();
 
 // Crafting functions.

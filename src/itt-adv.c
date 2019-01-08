@@ -21,6 +21,8 @@
 
 OAMEntry sprites[128];
 
+u8 unlocked[261];
+
 State program_state = CategorySelect;
 
 SpriteObj sprite_data[] = 
@@ -198,7 +200,13 @@ int main()
 	sprites[53].attribute1 = SIZE_16 | 0;
 	sprites[53].attribute2 = sprites[52].attribute2 + 8;
 
+	initialiseGame();
 	initialiseSprites();
+
+	for(loop = 0; loop < 22; ++loop)
+	{
+		displayItem(loop, loop);
+	}
 
 	// Start the game loop.
 	while(1)
@@ -208,6 +216,24 @@ int main()
 	}
 
 	return 0;
+}
+
+// Set the start state of all game elements.
+void initialiseGame(void)
+{
+	u16 loop;
+
+	// Lock all items.
+	for(loop = 0; loop < 261; ++loop)
+	{
+		unlocked[loop] = 0;
+	}
+
+	// Then unlock Air, Earth, Fire and Water.
+	for(loop = 1; loop < 5; ++loop)
+	{
+		unlocked[loop] = 1;
+	}
 }
 
 // Move all sprites to their starting positions.
@@ -229,7 +255,7 @@ void initialiseSprites(void)
 }
 
 // Move a sprite by an amount.
-void moveSprite(OAMEntry* sp, int x, int y)
+void moveSprite(OAMEntry* sp, u8 x, u8 y)
 {
 	sp->attribute1 = sp->attribute1 & 0xFE00;
 	sp->attribute1 = sp->attribute1 | x;
@@ -238,8 +264,14 @@ void moveSprite(OAMEntry* sp, int x, int y)
 	sp->attribute0 = sp->attribute0 | y;
 }
 
+// Move a sprite to its default position.
+void showSprite(u8 spriteID)
+{
+	moveSprite(&sprites[spriteID], sprite_data[spriteID].startPosX, sprite_data[spriteID].startPosY);
+}
+
 // Move a sprite to (240, 160);
-void hideSprite(int spriteID)
+void hideSprite(u8 spriteID)
 {
 	moveSprite(&sprites[spriteID], 240, 160);
 }
@@ -258,27 +290,38 @@ void copyOAM(void)
 }
 
 // Display the chosen item in the relevant position.
-void displayItem(int position, u16 itemID)
+void displayItem(u8 spriteID, u16 itemID)
 {
-	// Check if item is unlocked. If so, place its sprite.
+	// If the itemID is -1, do not place a sprite.
+	if(itemID <= 261)
+	{
+		showSprite(spriteID);
 
-
-	// If not, select the empty sprite.
+		// Check if item is unlocked. If so, place its sprite.
+		if(unlocked[itemID])
+		{
+			memcpy((u16*)(0x06014000 + 0x100 * itemID), itemData[itemID].itemSprite, itemSpriteSize);
+		}
+		// If not, select the empty sprite.
+		else
+		{
+ 			memcpy((u16*)(0x06014000 + 0x100 * itemID), tx_LockedData, itemSpriteSize);
+		}
+	}
+	else
+	{
+		hideSprite(spriteID);
+	}
 }
+
 // Display text for the current item.
-void setItemText(u16 itemID)
-{
-
-}
-
-// Display the results box?
-void drawResultBox(int visible)
+void setText(char* text)
 {
 
 }
 
 // Set the category of items to display to the player.
-void chooseCategory(u16 categoryID)
+void chooseCategory(u8 categoryID)
 {
 
 }
