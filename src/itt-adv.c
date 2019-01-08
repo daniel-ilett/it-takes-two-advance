@@ -11,9 +11,9 @@
 #include "sprite/bar.h"
 #include "sprite/crack.h"
 #include "sprite/numbers.h"
-#include "sprite/item_sprites.h"
+//#include "sprite/item_sprites.h"
 
-#include "recipe.h"
+//#include "recipe.h"
 #include "item.h"
 
 #include "sprite_obj.h"
@@ -257,7 +257,7 @@ void copyOAM(void)
 }
 
 // Display the chosen item in the relevant position.
-void displayItem(int position, ItemName item)
+void displayItem(int position, u16 itemID)
 {
 	// Check if item is unlocked. If so, place its sprite.
 
@@ -265,7 +265,7 @@ void displayItem(int position, ItemName item)
 	// If not, select the empty sprite.
 }
 // Display text for the current item.
-void setItemText(ItemName item)
+void setItemText(u16 itemID)
 {
 
 }
@@ -277,13 +277,13 @@ void drawResultBox(int visible)
 }
 
 // Set the category of items to display to the player.
-void chooseCategory(CategoryName category)
+void chooseCategory(u16 categoryID)
 {
 
 }
 
 // The user picks an item to try crafting.
-void userChooseItem(ItemName item)
+void userChooseItem(u16 itemID)
 {
 	// Do something to pick the item currently hovered.
 
@@ -297,7 +297,7 @@ void invalidCraft(void)
 }
 
 // The crafting was successful so we can display a result.
-void validCraft(ItemName result)
+void validCraft(u16 itemResult)
 {
 
 }
