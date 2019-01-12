@@ -4,7 +4,7 @@
 #include "itt-adv.h"
 
 // Include sprites.
-#include "sprite/numbers.h"
+#include "sprite/font.h"
 #include "sprite/cursor.h"
 
 //#include "recipe.h"
@@ -296,7 +296,7 @@ void setChar(u8 textID, char newChar)
 {
 	showSprite(22 + textID);
 
-	memcpy((u16*)(0x06015600 + 0x100 * textID), &number0Data, sizeof(number0Data));
+	memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_0Data, sizeof(tx_0Data));
 }
 
 // Set the category of items to display to the player.
