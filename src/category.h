@@ -31,6 +31,7 @@ typedef enum CategoryName
 	C_Knowledge
 } CategoryName;
 
+// Struct that holds data about a category.
 typedef struct CategoryData
 {
 	const char categoryString[23];
@@ -38,13 +39,10 @@ typedef struct CategoryData
 	const ItemName items[23];
 } CategoryData;
 
+// Define each category's item list and primary item.
 const CategoryData categoryData[] = 
 {
-	{ "Null Category", None,
-		{
-
-		}
-	},
+	{ "Null Category", None, { } },
 	{ "Core Elements", Fire,
 		{
 			Earth,
@@ -400,29 +398,5 @@ const CategoryData categoryData[] =
 		}
 	},
 };
-
-/*
-// String names for each category.
-const char *categoryStrings[] =
-{
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-};
-*/
 
 #endif

@@ -164,6 +164,8 @@ int main()
 	// Display the cursor.
 	showSprite(53);
 
+	setText("This is a box! Also, some text will overrun most certainly.");
+
 	// Start the game loop.
 	while(1)
 	{
@@ -271,9 +273,30 @@ void displayItem(u8 spriteID, u16 itemID)
 }
 
 // Display text for the current item.
-void setText(char* text)
+void setText(char *text)
 {
+	int len = strlen(text);
 
+	u8 index;
+	for(index = 0; index < 22; ++index)
+	{
+		if(index < len)
+		{
+			setChar(index, text[index]);
+		}
+		else
+		{
+			hideSprite(22 + index);
+		}
+	}
+}
+
+// Set the character shown by a specific character spot.
+void setChar(u8 textID, char newChar)
+{
+	showSprite(22 + textID);
+
+	memcpy((u16*)(0x06015600 + 0x100 * textID), &number0Data, sizeof(number0Data));
 }
 
 // Set the category of items to display to the player.

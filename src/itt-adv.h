@@ -19,6 +19,7 @@ void copyOAM(void);
 // Sprite display functions.
 void displayItem(u8 spriteID, u16 itemID);
 void setText(char* text);
+void setChar(u8 textID, char newChar);
 
 // Menu navigation functions.
 void chooseCategory(u8 categoryID);
