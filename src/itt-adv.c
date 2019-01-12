@@ -5,7 +5,7 @@
 
 // Include sprites.
 #include "sprite/numbers.h"
-//#include "sprite/item_sprites.h"
+#include "sprite/cursor.h"
 
 //#include "recipe.h"
 #include "item.h"
@@ -18,6 +18,7 @@ OAMEntry sprites[128];
 u8 unlocked[261];
 
 State program_state = CategorySelect;
+u8 cursor_pos = 0;
 
 SpriteObj sprite_data[] = 
 {
@@ -110,47 +111,8 @@ int main()
 		FrontBuffer[loop] = 0x3838;
 	}
 
-	// Copy the ball pixel data to the first location in sprite data.
-	//memcpy((u16*)0x06014000, &tx_LockedData, sizeof(tx_LockedData));
-	memcpy((u16*)0x06014000, itemData[0].itemSprite, itemSpriteSize);
-	memcpy((u16*)0x06014100, &tx_FireData, sizeof(tx_FireData));
-	memcpy((u16*)0x06014200, &tx_WaterData, sizeof(tx_WaterData));
-	memcpy((u16*)0x06014300, &tx_OreData, sizeof(tx_OreData));
-	memcpy((u16*)0x06014400, &tx_FireData, sizeof(tx_FireData));
-	memcpy((u16*)0x06014500, &tx_FireData, sizeof(tx_FireData));
-	memcpy((u16*)0x06014600, &tx_VampireData, sizeof(tx_VampireData));
-	memcpy((u16*)0x06014700, &tx_FireData, sizeof(tx_FireData));
-	memcpy((u16*)0x06014800, &tx_FireData, sizeof(tx_FireData));
-
-	memcpy((u16*)0x06014900, &tx_BirdData, sizeof(tx_BirdData));
-	memcpy((u16*)0x06014a00, &tx_FireData, sizeof(tx_FireData));
-	memcpy((u16*)0x06014b00, &tx_FireData, sizeof(tx_FireData));
-	memcpy((u16*)0x06014c00, &tx_FireData, sizeof(tx_FireData));
-	memcpy((u16*)0x06014d00, &tx_FireData, sizeof(tx_FireData));
-	memcpy((u16*)0x06014e00, &tx_FireData, sizeof(tx_FireData));
-	memcpy((u16*)0x06014f00, &tx_ZombieData, sizeof(tx_ZombieData));
-	memcpy((u16*)0x06015000, &tx_FireData, sizeof(tx_FireData));
-	memcpy((u16*)0x06015100, &tx_AlcoholData, sizeof(tx_AlcoholData));
-
-	memcpy((u16*)0x06015200, &tx_FireData, sizeof(tx_FireData));
-	memcpy((u16*)0x06015300, &tx_FireData, sizeof(tx_FireData));
-	memcpy((u16*)0x06015400, &tx_FireData, sizeof(tx_FireData));
-	memcpy((u16*)0x06015500, &tx_FireData, sizeof(tx_FireData));
-
-	/*
-	memcpy((u16*)0x06014100, &barData,  	sizeof(barData));
-	memcpy((u16*)0x06014300, &crackData, 	sizeof(crackData));
-	memcpy((u16*)0x06014400, &number0Data, 	sizeof(number0Data));
-	memcpy((u16*)0x06014500, &number1Data, 	sizeof(number1Data));
-	memcpy((u16*)0x06014600, &number2Data, 	sizeof(number2Data));
-	memcpy((u16*)0x06014700, &number3Data, 	sizeof(number3Data));
-	memcpy((u16*)0x06014800, &number4Data, 	sizeof(number4Data));
-	memcpy((u16*)0x06014900, &number5Data, 	sizeof(number5Data));
-	memcpy((u16*)0x06014a00, &number6Data, 	sizeof(number6Data));
-	memcpy((u16*)0x06014b00, &number7Data, 	sizeof(number7Data));
-	memcpy((u16*)0x06014c00, &number8Data, 	sizeof(number8Data));
-	memcpy((u16*)0x06014d00, &number9Data, 	sizeof(number9Data));
-	*/
+	// Place the cursor in the starting position.
+	memcpy((u16*)0x06017500, &tx_CursorData, sizeof(tx_CursorData));
 
 	// Initialise item slot sprites.
 	for(loop = 0; loop < 22; ++loop)
@@ -192,10 +154,14 @@ int main()
 	initialiseGame();
 	initialiseSprites();
 
+	// Display the item tray.
 	for(loop = 0; loop < 22; ++loop)
 	{
 		displayItem(loop, loop);
 	}
+
+	// Display the cursor.
+	showSprite(53);
 
 	// Start the game loop.
 	while(1)
