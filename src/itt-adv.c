@@ -9,6 +9,7 @@
 
 //#include "recipe.h"
 #include "item.h"
+#include "category.h"
 
 #include "sprite_obj.h"
 #include "state.h"
