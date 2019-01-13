@@ -16,81 +16,13 @@
 
 OAMEntry sprites[128];
 
+// Program state variables.
 u8 unlocked[261];
+u16 unlockedCount = 0;
 
 State program_state = CategorySelect;
+
 u8 cursor_pos = 0;
-
-SpriteObj sprite_data[] = 
-{
-	// Row 1 of item palette. (x9)
-	{ .startPosX = 16, 	.startPosY = 80 },
-	{ .startPosX = 40, 	.startPosY = 80 },
-	{ .startPosX = 64, 	.startPosY = 80 },
-	{ .startPosX = 88, 	.startPosY = 80 },
-	{ .startPosX = 112, .startPosY = 80 },
-	{ .startPosX = 136, .startPosY = 80 },
-	{ .startPosX = 160, .startPosY = 80 },
-	{ .startPosX = 184, .startPosY = 80 },
-	{ .startPosX = 208, .startPosY = 80 },
-
-	// Row 2 of item palette. (x9)
-	{ .startPosX = 16, 	.startPosY = 108 },
-	{ .startPosX = 40, 	.startPosY = 108 },
-	{ .startPosX = 64, 	.startPosY = 108 },
-	{ .startPosX = 88, 	.startPosY = 108 },
-	{ .startPosX = 112, .startPosY = 108 },
-	{ .startPosX = 136, .startPosY = 108 },
-	{ .startPosX = 160, .startPosY = 108 },
-	{ .startPosX = 184, .startPosY = 108 },
-	{ .startPosX = 208, .startPosY = 108 },
-
-	// Row 3 of item palette. (x4)
-	{ .startPosX = 76, 	.startPosY = 132 },
-	{ .startPosX = 100, .startPosY = 132 },
-	{ .startPosX = 124, .startPosY = 132 },
-	{ .startPosX = 148, .startPosY = 132 },
-
-	// Text slots. (x22)
-	{ .startPosX = 32, 	.startPosY = 56  },
-	{ .startPosX = 40, 	.startPosY = 56  },
-	{ .startPosX = 48, 	.startPosY = 56  },
-	{ .startPosX = 56, 	.startPosY = 56  },
-	{ .startPosX = 64, 	.startPosY = 56  },
-	{ .startPosX = 72, 	.startPosY = 56  },
-	{ .startPosX = 80, 	.startPosY = 56  },
-	{ .startPosX = 88, 	.startPosY = 56  },
-	{ .startPosX = 96, 	.startPosY = 56  },
-	{ .startPosX = 104, .startPosY = 56  },
-	{ .startPosX = 112, .startPosY = 56  },
-	{ .startPosX = 120, .startPosY = 56  },
-	{ .startPosX = 128, .startPosY = 56  },
-	{ .startPosX = 136, .startPosY = 56  },
-	{ .startPosX = 144, .startPosY = 56  },
-	{ .startPosX = 152, .startPosY = 56  },
-	{ .startPosX = 160, .startPosY = 56  },
-	{ .startPosX = 168, .startPosY = 56  },
-	{ .startPosX = 176, .startPosY = 56  },
-	{ .startPosX = 184, .startPosY = 56  },
-	{ .startPosX = 192, .startPosY = 56  },
-	{ .startPosX = 200, .startPosY = 56  },
-
-	// Progress text slots. (x7)
-	{ .startPosX = 176, .startPosY = 8   },
-	{ .startPosX = 184, .startPosY = 8   },
-	{ .startPosX = 192, .startPosY = 8   },
-	{ .startPosX = 200, .startPosY = 8   },
-	{ .startPosX = 208, .startPosY = 8   },
-	{ .startPosX = 216, .startPosY = 8   },
-	{ .startPosX = 224, .startPosY = 8   },
-
-	// Picked item sprites. (x2)
-	{ .startPosX = 100, .startPosY = 24  },
-	{ .startPosX = 124, .startPosY = 24  },
-
-	// Cursor slot. (x1)
-	{ .startPosX = 16, 	.startPosY = 96  },
-};
 
 // Application entry point.
 int main()
@@ -192,6 +124,8 @@ void initialiseGame(void)
 	{
 		unlocked[loop] = 1;
 	}
+
+	setProgress(4);
 }
 
 // Move all sprites to their starting positions.
@@ -292,9 +226,35 @@ void setText(char *text)
 }
 
 // Update the progress bar text.
-void setProgress(void)
+void setProgress(u16 newUnlocks)
 {
+	unlockedCount += newUnlocks;
 
+	// Exploit integer division.
+	u8 hundreds = unlockedCount / 100;
+	u8 tens = unlockedCount / 10 - hundreds * 10;
+	u8 units = unlockedCount - tens * 10 - hundreds * 100;
+
+	char progressString[8];
+
+	// Exploit int<->char equivalence.
+	progressString[0] = hundreds + '0';
+	progressString[1] = tens + '0';
+	progressString[2] = units + '0';
+	progressString[3] = '/';
+	progressString[4] = '2';
+	progressString[5] = '6';
+	progressString[6] = '0';
+	progressString[7] = '\0';
+
+	// It's all just exploits all the way down.
+
+	u8 index;
+
+	for(index = 0; index < 7; ++index)
+	{
+		setChar(22 + index, progressString[index]);
+	}
 }
 
 // Set the character shown by a specific character spot.
