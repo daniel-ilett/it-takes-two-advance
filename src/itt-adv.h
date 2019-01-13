@@ -18,7 +18,7 @@ void copyOAM(void);
 
 // Sprite display functions.
 void displayItem(u8 spriteID, u16 itemID);
-void setText(char* text);
+void setText(const char* text);
 void setProgress(u16 newUnlocks);
 void setChar(u8 textID, char newChar);
 

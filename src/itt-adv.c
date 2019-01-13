@@ -44,9 +44,6 @@ int main()
 		FrontBuffer[loop] = 0x3838;
 	}
 
-	// Place the cursor in the starting position.
-	memcpy((u16*)0x06017500, &tx_CursorData, sizeof(tx_CursorData));
-
 	// Initialise item slot sprites.
 	for(loop = 0; loop < 22; ++loop)
 	{
@@ -84,19 +81,22 @@ int main()
 	sprites[53].attribute1 = SIZE_16 | 0;
 	sprites[53].attribute2 = sprites[52].attribute2 + 8;
 
+	// Put the cursor sprite in the correct memory location.
+	memcpy((u16*)0x06017500, &tx_CursorData, sizeof(tx_CursorData));
+
 	initialiseGame();
 	initialiseSprites();
 
 	// Display the item tray.
 	for(loop = 0; loop < 22; ++loop)
 	{
-		displayItem(loop, loop);
+		//displayItem(loop, loop);
 	}
 
 	// Display the cursor.
 	showSprite(53);
 
-	setText("/IT TAKES TWO ADVANCE/");
+	//setText("/IT TAKES TWO ADVANCE/");
 
 	// Start the game loop.
 	while(1)
@@ -126,6 +126,8 @@ void initialiseGame(void)
 	}
 
 	setProgress(4);
+
+	chooseCategory(18);
 }
 
 // Move all sprites to their starting positions.
@@ -184,7 +186,7 @@ void copyOAM(void)
 // Display the chosen item in the relevant position.
 void displayItem(u8 spriteID, u16 itemID)
 {
-	// If the itemID is -1, do not place a sprite.
+	// If the itemID is invalid, do not place a sprite.
 	if(itemID <= 261)
 	{
 		showSprite(spriteID);
@@ -192,12 +194,12 @@ void displayItem(u8 spriteID, u16 itemID)
 		// Check if item is unlocked. If so, place its sprite.
 		if(unlocked[itemID])
 		{
-			memcpy((u16*)(0x06014000 + 0x100 * itemID), itemData[itemID].itemSprite, itemSpriteSize);
+			memcpy((u16*)(0x06014000 + 0x100 * spriteID), itemData[itemID].itemSprite, itemSpriteSize);
 		}
 		// If not, select the empty sprite.
 		else
 		{
- 			memcpy((u16*)(0x06014000 + 0x100 * itemID), tx_LockedData, itemSpriteSize);
+ 			memcpy((u16*)(0x06014000 + 0x100 * spriteID), tx_LockedData, itemSpriteSize);
 		}
 	}
 	else
@@ -207,7 +209,7 @@ void displayItem(u8 spriteID, u16 itemID)
 }
 
 // Display text for the current item.
-void setText(char *text)
+void setText(const char *text)
 {
 	int len = strlen(text);
 
@@ -415,7 +417,21 @@ void setChar(u8 textID, char newChar)
 // Set the category of items to display to the player.
 void chooseCategory(u8 categoryID)
 {
+	u8 index;
 
+	for(index = 0; index < 22; ++index)
+	{
+		if(categoryData[categoryID].items[index] != 0)
+		{
+			displayItem(index, categoryData[categoryID].items[index]);
+		}
+		else
+		{
+			hideSprite(index);
+		}
+	}
+
+	setText(categoryData[categoryID].categoryString);
 }
 
 // The user picks an item to try crafting.
