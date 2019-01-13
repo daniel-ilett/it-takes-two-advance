@@ -164,7 +164,7 @@ int main()
 	// Display the cursor.
 	showSprite(53);
 
-	setText(" IT TAKES TWO ADVANCE");
+	setText("/IT TAKES TWO ADVANCE/");
 
 	// Start the game loop.
 	while(1)
@@ -291,6 +291,12 @@ void setText(char *text)
 	}
 }
 
+// Update the progress bar text.
+void setProgress(void)
+{
+
+}
+
 // Set the character shown by a specific character spot.
 void setChar(u8 textID, char newChar)
 {
@@ -303,6 +309,9 @@ void setChar(u8 textID, char newChar)
 			break;
 		case '\'':
 			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_ApostropheData, sizeof(tx_ApostropheData));
+			break;
+		case '/':
+			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_FSlashData, sizeof(tx_FSlashData));
 			break;
 		case 'A':
 		case 'a':
