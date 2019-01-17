@@ -133,7 +133,7 @@ void initialiseSprites(void)
 
 	for(loop = 0; loop < 128; ++loop)
 	{
-		if(loop < 54)
+		if(loop < 55)
 		{
 			moveSprite(&sprites[loop], sprite_data[loop].startPosX, sprite_data[loop].startPosY);
 		}
@@ -224,7 +224,33 @@ void update(void)
 // Poll for inputs to move the cursor.
 void moveCursor(void)
 {
+	u8 max_pos = 0;
 
+	if(programState == CategorySelect)
+	{
+		//max_pos = 
+	}
+	else if(programState == ItemSelect)
+	{
+
+	}
+
+	if(keyDown(KEY_LEFT) && cursor_pos > 0)
+	{
+		cursor_pos--;
+	}
+	else if(keyDown(KEY_RIGHT))
+	{
+		cursor_pos++;
+	}
+	else if(keyDown(KEY_UP))
+	{
+
+	}
+	else if(keyDown(KEY_DOWN))
+	{
+
+	}
 }
 
 // Set the program state.
@@ -330,150 +356,150 @@ void setChar(u8 textID, char newChar)
 	switch(newChar)
 	{
 		case ' ':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_TextSpaceData, sizeof(tx_TextSpaceData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_TextSpaceData, sizeof(tx_TextSpaceData));
 			break;
 		case '\'':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_ApostropheData, sizeof(tx_ApostropheData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_ApostropheData, sizeof(tx_ApostropheData));
 			break;
 		case '/':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_FSlashData, sizeof(tx_FSlashData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_FSlashData, sizeof(tx_FSlashData));
 			break;
 		case 'A':
 		case 'a':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_AData, sizeof(tx_AData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_AData, sizeof(tx_AData));
 			break;
 		case 'B':
 		case 'b':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_BData, sizeof(tx_BData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_BData, sizeof(tx_BData));
 			break;
 		case 'C':
 		case 'c':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_CData, sizeof(tx_CData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_CData, sizeof(tx_CData));
 			break;
 		case 'D':
 		case 'd':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_DData, sizeof(tx_DData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_DData, sizeof(tx_DData));
 			break;
 		case 'E':
 		case 'e':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_EData, sizeof(tx_EData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_EData, sizeof(tx_EData));
 			break;
 		case 'F':
 		case 'f':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_FData, sizeof(tx_FData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_FData, sizeof(tx_FData));
 			break;
 		case 'G':
 		case 'g':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_GData, sizeof(tx_GData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_GData, sizeof(tx_GData));
 			break;
 		case 'H':
 		case 'h':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_HData, sizeof(tx_HData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_HData, sizeof(tx_HData));
 			break;
 		case 'I':
 		case 'i':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_IData, sizeof(tx_IData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_IData, sizeof(tx_IData));
 			break;
 		case 'J':
 		case 'j':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_JData, sizeof(tx_JData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_JData, sizeof(tx_JData));
 			break;
 		case 'K':
 		case 'k':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_KData, sizeof(tx_KData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_KData, sizeof(tx_KData));
 			break;
 		case 'L':
 		case 'l':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_LData, sizeof(tx_LData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_LData, sizeof(tx_LData));
 			break;
 		case 'M':
 		case 'm':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_MData, sizeof(tx_MData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_MData, sizeof(tx_MData));
 			break;
 		case 'N':
 		case 'n':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_NData, sizeof(tx_NData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_NData, sizeof(tx_NData));
 			break;
 		case 'O':
 		case 'o':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_OData, sizeof(tx_OData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_OData, sizeof(tx_OData));
 			break;
 		case 'P':
 		case 'p':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_PData, sizeof(tx_PData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_PData, sizeof(tx_PData));
 			break;
 		case 'Q':
 		case 'q':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_QData, sizeof(tx_QData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_QData, sizeof(tx_QData));
 			break;
 		case 'R':
 		case 'r':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_RData, sizeof(tx_RData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_RData, sizeof(tx_RData));
 			break;
 		case 'S':
 		case 's':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_SData, sizeof(tx_SData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_SData, sizeof(tx_SData));
 			break;
 		case 'T':
 		case 't':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_TData, sizeof(tx_TData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_TData, sizeof(tx_TData));
 			break;
 		case 'U':
 		case 'u':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_UData, sizeof(tx_UData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_UData, sizeof(tx_UData));
 			break;
 		case 'V':
 		case 'v':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_VData, sizeof(tx_VData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_VData, sizeof(tx_VData));
 			break;
 		case 'W':
 		case 'w':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_WData, sizeof(tx_WData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_WData, sizeof(tx_WData));
 			break;
 		case 'X':
 		case 'x':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_XData, sizeof(tx_XData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_XData, sizeof(tx_XData));
 			break;
 		case 'Y':
 		case 'y':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_YData, sizeof(tx_YData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_YData, sizeof(tx_YData));
 			break;
 		case 'Z':
 		case 'z':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_ZData, sizeof(tx_ZData));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_ZData, sizeof(tx_ZData));
 			break;
 		case '0':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_0Data, sizeof(tx_0Data));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_0Data, sizeof(tx_0Data));
 			break;
 		case '1':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_1Data, sizeof(tx_1Data));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_1Data, sizeof(tx_1Data));
 			break;
 		case '2':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_2Data, sizeof(tx_2Data));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_2Data, sizeof(tx_2Data));
 			break;
 		case '3':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_3Data, sizeof(tx_3Data));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_3Data, sizeof(tx_3Data));
 			break;
 		case '4':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_4Data, sizeof(tx_4Data));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_4Data, sizeof(tx_4Data));
 			break;
 		case '5':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_5Data, sizeof(tx_5Data));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_5Data, sizeof(tx_5Data));
 			break;
 		case '6':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_6Data, sizeof(tx_6Data));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_6Data, sizeof(tx_6Data));
 			break;
 		case '7':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_7Data, sizeof(tx_7Data));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_7Data, sizeof(tx_7Data));
 			break;
 		case '8':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_8Data, sizeof(tx_8Data));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_8Data, sizeof(tx_8Data));
 			break;
 		case '9':
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_9Data, sizeof(tx_9Data));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_9Data, sizeof(tx_9Data));
 			break;
 		default:
-			memcpy((u16*)(0x06015600 + 0x100 * textID), &tx_0Data, sizeof(tx_0Data));
+			memcpy((u16*)(0x06015700 + 0x100 * textID), &tx_0Data, sizeof(tx_0Data));
 	}
 }
 

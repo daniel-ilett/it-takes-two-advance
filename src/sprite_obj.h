@@ -34,11 +34,12 @@ SpriteObj sprite_data[] =
 	{ .startPosX = 184, .startPosY = 104 },
 	{ .startPosX = 208, .startPosY = 104 },
 
-	// Row 3 of item palette. (x4)
-	{ .startPosX = 76, 	.startPosY = 128 },
-	{ .startPosX = 100, .startPosY = 128 },
-	{ .startPosX = 124, .startPosY = 128 },
-	{ .startPosX = 148, .startPosY = 128 },
+	// Row 3 of item palette. (x5)
+	{ .startPosX = 64, 	.startPosY = 128 },
+	{ .startPosX = 88, 	.startPosY = 128 },
+	{ .startPosX = 112, .startPosY = 128 },
+	{ .startPosX = 136, .startPosY = 128 },
+	{ .startPosX = 160, .startPosY = 128 },
 
 	// Text slots. (x22)
 	{ .startPosX = 32, 	.startPosY = 56  },
