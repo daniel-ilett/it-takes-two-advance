@@ -3,7 +3,7 @@
 #ifndef ITT_ADV_H
 #define ITT_ADV_H
 
-//#include "category.h"
+#include "state.h"
 #include "item.h"
 
 // Sprite manipulation.
@@ -16,6 +16,11 @@ void hideSprite(u8 spriteID);
 // Memory manipulation.
 void copyOAM(void);
 
+// Game parameters.
+void update(void);
+void moveCursor(void);
+void setState(State state);
+
 // Sprite display functions.
 void displayItem(u8 spriteID, u16 itemID);
 void setText(const char* text);
@@ -27,7 +32,7 @@ void chooseCategory(u8 categoryID);
 void returnToCategories();
 
 // Crafting functions.
-void userChooseItem(u16 itemID);
+void chooseItem(u16 itemID);
 void invalidCraft(void);
 void validCraft(u16 itemID);
 

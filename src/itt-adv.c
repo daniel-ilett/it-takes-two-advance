@@ -20,9 +20,12 @@ OAMEntry sprites[128];
 u8 unlocked[261];
 u16 unlockedCount = 0;
 
-State program_state = CategorySelect;
+State programState = CategorySelect;
 
 u8 cursor_pos = 0;
+
+CategoryName activeCategory = 0;
+u8 items_chosen = 0;
 
 // Application entry point.
 int main()
@@ -87,20 +90,14 @@ int main()
 	initialiseGame();
 	initialiseSprites();
 
-	// Display the item tray.
-	for(loop = 0; loop < 22; ++loop)
-	{
-		//displayItem(loop, loop);
-	}
-
 	// Display the cursor.
 	showSprite(53);
-
-	//setText("/IT TAKES TWO ADVANCE/");
 
 	// Start the game loop.
 	while(1)
 	{
+		update();
+
 		WaitForVsync();
 		copyOAM();
 	}
@@ -126,8 +123,7 @@ void initialiseGame(void)
 	}
 
 	setProgress(4);
-
-	chooseCategory(18);
+	setState(CategorySelect);
 }
 
 // Move all sprites to their starting positions.
@@ -180,6 +176,73 @@ void copyOAM(void)
 	for(loop = 0; loop < 128 * 4; ++loop)
 	{
 		OAM_Mem[loop] = temp[loop];
+	}
+}
+
+// Run this function once per frame.
+void update(void)
+{
+	switch(programState)
+	{
+		// We may pick a category.
+		case CategorySelect:
+			moveCursor();
+			if(keyDown(KEY_A))
+			{
+				chooseCategory(cursor_pos);
+			}
+			break;
+		// We may pick an item.
+		case ItemSelect:
+			moveCursor();
+			if(keyDown(KEY_A))
+			{
+				chooseItem(categoryData[activeCategory].items[cursor_pos]);
+			}
+			else if(keyDown(KEY_B))
+			{
+				setState(CategorySelect);
+			}
+			break;
+		// We may return to the Category screen.
+		case ValidCraft:
+			if(keyDown(KEY_A))
+			{
+				setState(CategorySelect);
+			}
+			break;
+		// We may return to the Category screen.
+		case InvalidCraft:
+			if(keyDown(KEY_A))
+			{
+				setState(CategorySelect);
+			}
+			break;
+	}
+}
+
+// Poll for inputs to move the cursor.
+void moveCursor(void)
+{
+
+}
+
+// Set the program state.
+void setState(State state)
+{
+
+}
+
+// Choose the text which should appear.
+void setCursorText(void)
+{
+	if(programState == CategorySelect)
+	{
+
+	}
+	else if(programState == ItemSelect)
+	{
+
 	}
 }
 
@@ -435,7 +498,7 @@ void chooseCategory(u8 categoryID)
 }
 
 // The user picks an item to try crafting.
-void userChooseItem(u16 itemID)
+void chooseItem(u16 itemID)
 {
 	// Do something to pick the item currently hovered.
 
