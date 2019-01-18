@@ -602,21 +602,30 @@ void chooseCategory(void)
 // The user picks an item to try crafting.
 void chooseItem(u16 itemID)
 {
-	// Do something to pick the item currently hovered.
-	if(items_chosen == 0)
+	if(isItemUnlocked(itemID))
 	{
-		// Set the first item.
-		itemA = categoryData[activeCategory + 1].items[cursor_pos];
-		items_chosen = 1;
-	}
-	else if(items_chosen == 1)
-	{
-		// Set the second item.
-		itemB = categoryData[activeCategory + 1].items[cursor_pos];
+		// Do something to pick the item currently hovered.
+		if(items_chosen == 0)
+		{
+			// Set the first item.
+			itemA = categoryData[activeCategory + 1].items[cursor_pos];
+			items_chosen = 1;
+		}
+		else if(items_chosen == 1)
+		{
+			// Set the second item.
+			itemB = categoryData[activeCategory + 1].items[cursor_pos];
 
-		// When both items are picked, attempt to craft them.
-		attemptCraft();
+			// When both items are picked, attempt to craft them.
+			attemptCraft();
+		}
 	}
+}
+
+// Return whether the item has been unlocked.
+u8 isItemUnlocked(u16 itemID)
+{
+	return unlocked[categoryData[activeCategory + 1].items[cursor_pos]];
 }
 
 // Try to craft both items together.

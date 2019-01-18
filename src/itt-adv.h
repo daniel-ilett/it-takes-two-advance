@@ -35,6 +35,7 @@ void chooseCategory(void);
 
 // Crafting functions.
 void chooseItem(u16 itemID);
+u8 isItemUnlocked(u16 itemID);
 void attemptCraft(void);
 void invalidCraft(void);
 void validCraft(ItemName *craftedItems, u8 craftCount);
