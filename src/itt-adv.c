@@ -321,7 +321,14 @@ void setCursorText(void)
 	}
 	else if(programState == ItemSelect)
 	{
-		setText(itemData[categoryData[activeCategory + 1].items[cursor_pos]].itemName);
+		if(unlocked[categoryData[activeCategory + 1].items[cursor_pos]] == 0)
+		{
+			setText("Locked item");
+		}
+		else
+		{
+			setText(itemData[categoryData[activeCategory + 1].items[cursor_pos]].itemName);
+		}
 	}
 }
 
@@ -358,7 +365,7 @@ void setText(const char *text)
 	u8 index;
 	for(index = 0; index < 22; ++index)
 	{
-		if(index < len)
+		if(index <= len)
 		{
 			setChar(index, text[index]);
 		}
