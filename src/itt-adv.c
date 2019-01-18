@@ -74,9 +74,18 @@ int main()
 	{
 		sprites[loop].attribute0 = COLOR_256 | SQUARE | 0;
 		sprites[loop].attribute1 = SIZE_8 | 0;
-		sprites[loop].attribute2 = sprites[44].attribute2 + 2 + (loop - 45) * 8;
+		sprites[loop].attribute2 = sprites[44].attribute2 + 2 + (loop - 45) * 2;
 	}
 
+	// Initialise header text.
+	for(loop = 52; loop < 71; ++loop)
+	{
+		sprites[loop].attribute0 = COLOR_256 | SQUARE | 0;
+		sprites[loop].attribute1 = SIZE_8 | 0;
+		sprites[loop].attribute2 = sprites[51].attribute2 + 2 + (loop - 52) * 2;
+	}
+
+	/*
 	// Initialise chosen item sprites.
 	for(loop = 52; loop < 54; ++loop)
 	{
@@ -92,16 +101,7 @@ int main()
 
 	// Put the cursor sprite in the correct memory location.
 	memcpy((u16*)0x06017600, &tx_CursorData, sizeof(tx_CursorData));
-
-	// Initialise header text.
-	for(loop = 55; loop < 74; ++loop)
-	{
-		sprites[loop].attribute0 = COLOR_256 | SQUARE | 0;
-		sprites[loop].attribute1 = SIZE_8 | 0;
-		sprites[loop].attribute2 = sprites[54].attribute2 + 8 + (loop - 55) * 2;
-
-		memcpy((u16*)0x06017700 + 0x020 * (loop - 55), &tx_AData, sizeof(tx_AData));
-	}
+	*/
 
 	initialiseSprites();
 	initialiseGame();
@@ -313,12 +313,19 @@ void setState(State state)
 	switch(state)
 	{
 		case CategorySelect:
+			setHeaderText("Select Category");
 			setCategoryView();
 			break;
 		case ItemSelect:
+			setHeaderText("Select Item");
 			cursor_pos = 0;
 			setCursorPos();
 			break;
+		case ValidCraft:
+			setHeaderText("Crafting Successful");
+			break;
+		case InvalidCraft:
+			setHeaderText("Invalid Recipe");
 	}
 }
 
@@ -327,17 +334,17 @@ void setCursorText(void)
 {
 	if(programState == CategorySelect)
 	{
-		setText(categoryData[cursor_pos + 1].categoryString);
+		setItemText(categoryData[cursor_pos + 1].categoryString);
 	}
 	else if(programState == ItemSelect)
 	{
 		if(unlocked[categoryData[activeCategory + 1].items[cursor_pos]] == 0)
 		{
-			setText("Locked item");
+			setItemText("Locked item");
 		}
 		else
 		{
-			setText(itemData[categoryData[activeCategory + 1].items[cursor_pos]].itemName);
+			setItemText(itemData[categoryData[activeCategory + 1].items[cursor_pos]].itemName);
 		}
 	}
 }
@@ -368,7 +375,7 @@ void displayItem(u8 spriteID, u16 itemID, u8 ignoreUnlocked)
 }
 
 // Display text for the current item.
-void setText(const char *text)
+void setItemText(const char *text)
 {
 	int len = strlen(text);
 
@@ -386,26 +393,24 @@ void setText(const char *text)
 	}
 }
 
-/*
 // Display text for the current item.
 void setHeaderText(const char *text)
 {
 	int len = strlen(text);
 
 	u8 index;
-	for(index = 0; index < 22; ++index)
+	for(index = 0; index < 19; ++index)
 	{
 		if(index <= len)
 		{
-			setChar(index, text[index]);
+			setChar(29 + index, text[index]);
 		}
 		else
 		{
-			hideSprite(22 + index);
+			hideSprite(22 + 29 + index);
 		}
 	}
 }
-*/
 
 // Update the progress bar text.
 void setProgress(u16 newUnlocks)

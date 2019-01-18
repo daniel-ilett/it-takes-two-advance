@@ -74,13 +74,6 @@ SpriteObj sprite_data[] =
 	{ .startPosX = 216, .startPosY = 8   },
 	{ .startPosX = 224, .startPosY = 8   },
 
-	// Picked item sprites. (x2)
-	{ .startPosX = 100, .startPosY = 24  },
-	{ .startPosX = 124, .startPosY = 24  },
-
-	// Cursor slot. (x1)
-	{ .startPosX = 16, 	.startPosY = 96  },
-
 	// Heading text slots. (x19)
 	{ .startPosX = 8, 	.startPosY = 8   },
 	{ .startPosX = 16, 	.startPosY = 8   },
@@ -101,6 +94,13 @@ SpriteObj sprite_data[] =
 	{ .startPosX = 136, .startPosY = 8   },
 	{ .startPosX = 144, .startPosY = 8   },
 	{ .startPosX = 152, .startPosY = 8   },
+
+	// Picked item sprites. (x2)
+	{ .startPosX = 100, .startPosY = 24  },
+	{ .startPosX = 124, .startPosY = 24  },
+
+	// Cursor slot. (x1)
+	{ .startPosX = 16, 	.startPosY = 96  },
 };
 
 #endif
