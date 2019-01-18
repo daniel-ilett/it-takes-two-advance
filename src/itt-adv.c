@@ -572,9 +572,9 @@ void chooseCategory(void)
 
 	for(index = 0; index < 22; ++index)
 	{
-		if(categoryData[activeCategory].items[index] != 0)
+		if(categoryData[activeCategory + 1].items[index] != 0)
 		{
-			displayItem(index, categoryData[activeCategory].items[index], 0);
+			displayItem(index, categoryData[activeCategory + 1].items[index], 0);
 		}
 		else
 		{
