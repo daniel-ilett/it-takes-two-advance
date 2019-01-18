@@ -19,6 +19,7 @@ void copyOAM(void);
 // Game parameters.
 void update(void);
 void moveCursor(void);
+void setCursorPos(void);
 void setState(State state);
 
 // Sprite display functions.

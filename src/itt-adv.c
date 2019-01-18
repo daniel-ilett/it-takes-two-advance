@@ -48,7 +48,7 @@ int main()
 	}
 
 	// Initialise item slot sprites.
-	for(loop = 0; loop < 22; ++loop)
+	for(loop = 0; loop < 23; ++loop)
 	{
 		sprites[loop].attribute0 = COLOR_256 | SQUARE | 0;
 		sprites[loop].attribute1 = SIZE_16 | 0;
@@ -56,15 +56,15 @@ int main()
 	}
 
 	// Initialise item name text slot sprites.
-	for(loop = 22; loop < 44; ++loop)
+	for(loop = 23; loop < 45; ++loop)
 	{
 		sprites[loop].attribute0 = COLOR_256 | SQUARE | 0;
 		sprites[loop].attribute1 = SIZE_8 | 0;
-		sprites[loop].attribute2 = sprites[21].attribute2 + (loop - 21) * 8;
+		sprites[loop].attribute2 = sprites[22].attribute2 + (loop - 22) * 8;
 	}
 
 	// Initialise progress text slot sprites.
-	for(loop = 44; loop < 51; ++loop)
+	for(loop = 45; loop < 52; ++loop)
 	{
 		sprites[loop].attribute0 = COLOR_256 | SQUARE | 0;
 		sprites[loop].attribute1 = SIZE_8 | 0;
@@ -72,26 +72,23 @@ int main()
 	}
 
 	// Initialise chosen item sprites.
-	for(loop = 51; loop < 53; ++loop)
+	for(loop = 52; loop < 54; ++loop)
 	{
 		sprites[loop].attribute0 = COLOR_256 | SQUARE | 0;
 		sprites[loop].attribute1 = SIZE_16 | 0;
-		sprites[loop].attribute2 = sprites[50].attribute2 + (loop - 50) * 8;
+		sprites[loop].attribute2 = sprites[51].attribute2 + (loop - 51) * 8;
 	}
 
 	// Initialise cursor sprite.
-	sprites[53].attribute0 = COLOR_256 | WIDE | 0;
-	sprites[53].attribute1 = SIZE_16 | 0;
-	sprites[53].attribute2 = sprites[52].attribute2 + 8;
+	sprites[54].attribute0 = COLOR_256 | WIDE | 0;
+	sprites[54].attribute1 = SIZE_16 | 0;
+	sprites[54].attribute2 = sprites[53].attribute2 + 8;
 
 	// Put the cursor sprite in the correct memory location.
 	memcpy((u16*)0x06017500, &tx_CursorData, sizeof(tx_CursorData));
 
-	initialiseGame();
 	initialiseSprites();
-
-	// Display the cursor.
-	showSprite(53);
+	initialiseGame();
 
 	// Start the game loop.
 	while(1)
@@ -224,15 +221,17 @@ void update(void)
 // Poll for inputs to move the cursor.
 void moveCursor(void)
 {
+	u8 old_pos = cursor_pos;
+
 	u8 max_pos = 0;
 
 	if(programState == CategorySelect)
 	{
-		//max_pos = 
+		max_pos = 23;
 	}
 	else if(programState == ItemSelect)
 	{
-
+		max_pos = categoryData[activeCategory].itemCount;
 	}
 
 	if(keyDown(KEY_LEFT) && cursor_pos > 0)
@@ -243,20 +242,40 @@ void moveCursor(void)
 	{
 		cursor_pos++;
 	}
-	else if(keyDown(KEY_UP))
+	else if(keyDown(KEY_UP) && cursor_pos >= 9)
 	{
-
+		cursor_pos -= 9;
 	}
 	else if(keyDown(KEY_DOWN))
 	{
-
+		cursor_pos += 9;
 	}
+
+	if(cursor_pos >= max_pos)
+	{
+		cursor_pos = max_pos - 1;
+	}
+
+	// If the cursor has changed position, place it in the new position.
+	if(old_pos != cursor_pos)
+	{
+		setCursorPos();
+	}
+}
+
+// Place the cursor at a sprite position.
+void setCursorPos(void)
+{
+	u8 x = sprite_data[cursor_pos].startPosX;
+	u8 y = sprite_data[cursor_pos].startPosY + 16;
+
+	moveSprite(&sprites[53], x, y);
 }
 
 // Set the program state.
 void setState(State state)
 {
-
+	
 }
 
 // Choose the text which should appear.

@@ -37,19 +37,20 @@ typedef struct CategoryData
 	const char categoryString[23];
 	const ItemName headItem;
 	const ItemName items[23];
+	const u8 itemCount;
 } CategoryData;
 
 // Define each category's item list and primary item.
 const CategoryData categoryData[] = 
 {
-	{ "Null Category", None, { } },
+	{ "Null Category", None, { }, 0 },
 	{ "Core Elements", Fire,
 		{
 			Earth,
 			Fire,
 			Water,
 			Air
-		}
+		}, 4
 	},
 	{ "Earth Minerals", Rock,
 		{
@@ -67,7 +68,7 @@ const CategoryData categoryData[] =
 			Ice,
 			Salt,
 			Sulphur
-		}
+		}, 14
 	},
 	{ "Metals",	Electrum,
 		{
@@ -80,7 +81,7 @@ const CategoryData categoryData[] =
 			Uranium,
 			Mercury,
 			Mithril
-		}
+		}, 9
 	},
 	{ "Gems", Diamond,
 		{
@@ -91,7 +92,7 @@ const CategoryData categoryData[] =
 			Onyx,
 			Opal,
 			Diamond
-		}
+		}, 7
 	},
 	{ "Life", Life,
 		{
@@ -100,7 +101,7 @@ const CategoryData categoryData[] =
 			Algae,
 			Mushroom,
 			Lichen
-		}
+		}, 5
 	},
 	{ "Plant Kingdom", Tree,
 		{
@@ -114,7 +115,7 @@ const CategoryData categoryData[] =
 			Reeds,
 			Papyrus,
 			Wheat
-		}
+		}, 10
 	},
 	{ "Animal Kingdom", Duck,
 		{
@@ -129,7 +130,7 @@ const CategoryData categoryData[] =
 			Cow,
 			Chicken,
 			Horse
-		}
+		}, 11
 	},
 	{ "Sealife", Fish,
 		{
@@ -138,7 +139,7 @@ const CategoryData categoryData[] =
 			Coral,
 			Seaweed,
 			Squid
-		}
+		}, 5
 	},
 	{ "Almost Human", Zombie,
 		{
@@ -147,7 +148,7 @@ const CategoryData categoryData[] =
 			Zombie,
 			Vampire,
 			Ghost
-		}
+		}, 5
 	},
 	{ "Plant Products", Apple,
 		{
@@ -162,7 +163,7 @@ const CategoryData categoryData[] =
 			Coffee,
 			Truffles,
 			Alcohol
-		}
+		}, 11
 	},
 	{ "Animal Products", Meat,
 		{
@@ -177,7 +178,7 @@ const CategoryData categoryData[] =
 			Cheese,
 			Wool,
 			Ink
-		}
+		}, 11
 	},
 	{ "Biomes", Swamp,
 		{
@@ -198,7 +199,7 @@ const CategoryData categoryData[] =
 			Farmland,
 			Glacier,
 			Desert
-		}
+		}, 17
 	},
 	{ "Forces of Nature", Storm,
 		{
@@ -218,7 +219,7 @@ const CategoryData categoryData[] =
 			Tsunami,
 			Hurricane,
 			Eruption
-		}
+		}, 16
 	},
 	{ "Seasons", Autumn,
 		{
@@ -226,7 +227,7 @@ const CategoryData categoryData[] =
 			Summer,
 			Autumn,
 			Winter
-		}
+		}, 4
 	},
 	{ "Industrial", Anvil,
 		{
@@ -243,7 +244,7 @@ const CategoryData categoryData[] =
 			Wire,
 			Petrol,
 			RocketFuel
-		}
+		}, 13
 	},
 	{ "Raw Materials", Brick,
 		{
@@ -266,7 +267,7 @@ const CategoryData categoryData[] =
 			Fertiliser,
 			Saltpetre,
 			Gunpowder
-		}
+		}, 19
 	},
 	{ "Artisan Goods", Sawblade,
 		{
@@ -288,7 +289,7 @@ const CategoryData categoryData[] =
 			Tracks,
 			Balloon,
 			Cake
-		}
+		}, 18
 	},
 	{ "Weaponry", Handgun,
 		{
@@ -314,7 +315,7 @@ const CategoryData categoryData[] =
 			Torpedo,
 			Trebuchet,
 			SiegeRam
-		}
+		}, 22
 	},
 	{ "Transport", Train,
 		{
@@ -337,7 +338,7 @@ const CategoryData categoryData[] =
 			Train,
 			Rocket,
 			Spaceship
-		}
+		}, 19
 	},
 	{ "Buildings", Mansion,
 		{
@@ -350,7 +351,7 @@ const CategoryData categoryData[] =
 			Cathedral,
 			Farmhouse,
 			Barn
-		}
+		}, 9
 	},
 	{ "Outer Space", Moon,
 		{
@@ -372,7 +373,7 @@ const CategoryData categoryData[] =
 			Light,
 			Dark,
 			Satellite
-		}
+		}, 18
 	},
 	{ "Magic", Magic,
 		{
@@ -381,7 +382,7 @@ const CategoryData categoryData[] =
 			Rune,
 			Staff, 
 			Wizard
-		}
+		}, 5
 	},
 	{ "Knowledge", Science,
 		{
@@ -395,7 +396,7 @@ const CategoryData categoryData[] =
 			History,
 			Language,
 			Art
-		}
+		}, 10
 	},
 };
 
