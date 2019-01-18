@@ -74,7 +74,7 @@ int main()
 	{
 		sprites[loop].attribute0 = COLOR_256 | SQUARE | 0;
 		sprites[loop].attribute1 = SIZE_8 | 0;
-		sprites[loop].attribute2 = sprites[43].attribute2 + (loop - 43) * 8;
+		sprites[loop].attribute2 = sprites[44].attribute2 + (loop - 44) * 8;
 	}
 
 	// Initialise chosen item sprites.
@@ -90,8 +90,14 @@ int main()
 	sprites[54].attribute1 = SIZE_16 | 0;
 	sprites[54].attribute2 = sprites[53].attribute2 + 8;
 
+	memcpy((u16*)0x06017400, &tx_CursorData, sizeof(tx_CursorData));
+	memcpy((u16*)0x06017500, itemData[0].itemSprite, itemSpriteSize);
+
+	showSprite(52);
+	showSprite(53);
+
 	// Put the cursor sprite in the correct memory location.
-	memcpy((u16*)0x06017500, &tx_CursorData, sizeof(tx_CursorData));
+	memcpy((u16*)0x06017600, &tx_CursorData, sizeof(tx_CursorData));
 
 	initialiseSprites();
 	initialiseGame();
@@ -209,7 +215,7 @@ void update(void)
 			moveCursor();
 			if(keyDown(KEY_A))
 			{
-				chooseItem(categoryData[activeCategory].items[cursor_pos]);
+				chooseItem(categoryData[activeCategory + 1].items[cursor_pos]);
 				frame_count = frame_delay;
 
 			}
@@ -291,7 +297,7 @@ void setCursorPos(void)
 	u8 x = sprite_data[cursor_pos].startPosX;
 	u8 y = sprite_data[cursor_pos].startPosY + 16;
 
-	moveSprite(&sprites[53], x, y);
+	moveSprite(&sprites[54], x, y);
 	setCursorText();
 }
 
@@ -607,12 +613,18 @@ void chooseItem(u16 itemID)
 		// Do something to pick the item currently hovered.
 		if(items_chosen == 0)
 		{
+			// Copy item data into correct location and show sprite.
+			memcpy((u16*)(0x06017400), itemData[itemID].itemSprite, itemSpriteSize);
+
 			// Set the first item.
 			itemA = categoryData[activeCategory + 1].items[cursor_pos];
 			items_chosen = 1;
 		}
 		else if(items_chosen == 1)
 		{
+			// Copy item data into correct location and show sprite.
+			memcpy((u16*)(0x06017500), itemData[itemID].itemSprite, itemSpriteSize);
+
 			// Set the second item.
 			itemB = categoryData[activeCategory + 1].items[cursor_pos];
 
