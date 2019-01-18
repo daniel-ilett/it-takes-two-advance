@@ -186,7 +186,8 @@ void update(void)
 			moveCursor();
 			if(keyDown(KEY_A))
 			{
-				chooseCategory(cursor_pos);
+				activeCategory = cursor_pos;
+				chooseCategory();
 			}
 			break;
 		// We may pick an item.
@@ -275,7 +276,16 @@ void setCursorPos(void)
 // Set the program state.
 void setState(State state)
 {
-	
+	programState = state;
+
+	switch(state)
+	{
+		case CategorySelect:
+			setCategoryView();
+			break;
+		case ItemSelect:
+			break;
+	}
 }
 
 // Choose the text which should appear.
@@ -522,16 +532,31 @@ void setChar(u8 textID, char newChar)
 	}
 }
 
+// Set the game to the category select.
+void setCategoryView(void)
+{
+	u8 index;
+
+	for(index = 0; index < 23; ++index)
+	{
+		displayItem(index, categoryData[activeCategory].headItem);
+	}
+
+	cursor_pos = 0;
+	setCursorPos();
+	activeCategory = 0;
+}
+
 // Set the category of items to display to the player.
-void chooseCategory(u8 categoryID)
+void chooseCategory(void)
 {
 	u8 index;
 
 	for(index = 0; index < 22; ++index)
 	{
-		if(categoryData[categoryID].items[index] != 0)
+		if(categoryData[activeCategory].items[index] != 0)
 		{
-			displayItem(index, categoryData[categoryID].items[index]);
+			displayItem(index, categoryData[activeCategory].items[index]);
 		}
 		else
 		{
@@ -539,7 +564,7 @@ void chooseCategory(u8 categoryID)
 		}
 	}
 
-	setText(categoryData[categoryID].categoryString);
+	//setText(categoryData[activeCategory].categoryString);
 }
 
 // The user picks an item to try crafting.

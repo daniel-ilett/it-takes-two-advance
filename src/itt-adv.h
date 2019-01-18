@@ -29,8 +29,8 @@ void setProgress(u16 newUnlocks);
 void setChar(u8 textID, char newChar);
 
 // Menu navigation functions.
-void chooseCategory(u8 categoryID);
-void returnToCategories();
+void setCategoryView(void);
+void chooseCategory(void);
 
 // Crafting functions.
 void chooseItem(u16 itemID);
