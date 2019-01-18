@@ -66,7 +66,7 @@ int main()
 	{
 		sprites[loop].attribute0 = COLOR_256 | SQUARE | 0;
 		sprites[loop].attribute1 = SIZE_8 | 0;
-		sprites[loop].attribute2 = sprites[22].attribute2 + (loop - 22) * 8;
+		sprites[loop].attribute2 = sprites[22].attribute2 + 8 + (loop - 23) * 8;
 	}
 
 	// Initialise progress text slot sprites.
@@ -74,7 +74,7 @@ int main()
 	{
 		sprites[loop].attribute0 = COLOR_256 | SQUARE | 0;
 		sprites[loop].attribute1 = SIZE_8 | 0;
-		sprites[loop].attribute2 = sprites[44].attribute2 + (loop - 44) * 8;
+		sprites[loop].attribute2 = sprites[44].attribute2 + 8 + (loop - 45) * 8;
 	}
 
 	// Initialise chosen item sprites.
@@ -82,7 +82,7 @@ int main()
 	{
 		sprites[loop].attribute0 = COLOR_256 | SQUARE | 0;
 		sprites[loop].attribute1 = SIZE_16 | 0;
-		sprites[loop].attribute2 = sprites[51].attribute2 + (loop - 51) * 8;
+		sprites[loop].attribute2 = sprites[51].attribute2 + 8 + (loop - 52) * 8;
 	}
 
 	// Initialise cursor sprite.
@@ -90,14 +90,18 @@ int main()
 	sprites[54].attribute1 = SIZE_16 | 0;
 	sprites[54].attribute2 = sprites[53].attribute2 + 8;
 
-	memcpy((u16*)0x06017400, &tx_CursorData, sizeof(tx_CursorData));
-	memcpy((u16*)0x06017500, itemData[0].itemSprite, itemSpriteSize);
-
-	showSprite(52);
-	showSprite(53);
-
 	// Put the cursor sprite in the correct memory location.
 	memcpy((u16*)0x06017600, &tx_CursorData, sizeof(tx_CursorData));
+
+	// Initialise header text.
+	for(loop = 55; loop < 74; ++loop)
+	{
+		sprites[loop].attribute0 = COLOR_256 | SQUARE | 0;
+		sprites[loop].attribute1 = SIZE_8 | 0;
+		sprites[loop].attribute2 = sprites[54].attribute2 + 8 + (loop - 55) * 2;
+
+		memcpy((u16*)0x06017700 + 0x020 * (loop - 55), &tx_AData, sizeof(tx_AData));
+	}
 
 	initialiseSprites();
 	initialiseGame();
@@ -149,7 +153,7 @@ void initialiseSprites(void)
 
 	for(loop = 0; loop < 128; ++loop)
 	{
-		if(loop < 55)
+		if(loop < 74)
 		{
 			moveSprite(&sprites[loop], sprite_data[loop].startPosX, sprite_data[loop].startPosY);
 		}

@@ -80,6 +80,27 @@ SpriteObj sprite_data[] =
 
 	// Cursor slot. (x1)
 	{ .startPosX = 16, 	.startPosY = 96  },
+
+	// Heading text slots. (x19)
+	{ .startPosX = 8, 	.startPosY = 8   },
+	{ .startPosX = 16, 	.startPosY = 8   },
+	{ .startPosX = 24, 	.startPosY = 8   },
+	{ .startPosX = 32, 	.startPosY = 8   },
+	{ .startPosX = 40, 	.startPosY = 8   },
+	{ .startPosX = 48, 	.startPosY = 8   },
+	{ .startPosX = 56, 	.startPosY = 8   },
+	{ .startPosX = 64, 	.startPosY = 8   },
+	{ .startPosX = 72, 	.startPosY = 8   },
+	{ .startPosX = 80, 	.startPosY = 8   },
+	{ .startPosX = 88, 	.startPosY = 8   },
+	{ .startPosX = 96, 	.startPosY = 8   },
+	{ .startPosX = 104, .startPosY = 8   },
+	{ .startPosX = 112, .startPosY = 8   },
+	{ .startPosX = 120, .startPosY = 8   },
+	{ .startPosX = 128, .startPosY = 8   },
+	{ .startPosX = 136, .startPosY = 8   },
+	{ .startPosX = 144, .startPosY = 8   },
+	{ .startPosX = 152, .startPosY = 8   },
 };
 
 #endif
