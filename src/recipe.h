@@ -15,6 +15,7 @@ typedef struct Recipe
 Recipe recipes[] = 
 {
 	{ Air, Knife, Balloon },
+
 	{ Lava, Earth, Fire },
 	{ Steam, Fire, Water },
 	{ Dust, Earth, Air },
@@ -352,7 +353,7 @@ Recipe recipes[] =
 ItemName checkRecipe(ItemName itemA, ItemName itemB)
 {
 	int i;
-	for(i = 0; i < (sizeof(recipes)/sizeof(recipes[0])); ++i)
+	for(i = 0; i < 311; ++i)
 	{
 		if(recipes[i].itemA == itemA)
 		{

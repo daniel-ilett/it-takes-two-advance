@@ -7,7 +7,7 @@
 #include "sprite/font.h"
 #include "sprite/cursor.h"
 
-//#include "recipe.h"
+#include "recipe.h"
 #include "item.h"
 #include "category.h"
 
@@ -29,6 +29,9 @@ u8 items_chosen = 0;
 
 const u8 frame_delay = 10;
 u8 frame_count = 0;
+
+u16 itemA = 0;
+u16 itemB = 0;
 
 // Application entry point.
 int main()
@@ -220,6 +223,7 @@ void update(void)
 		case ValidCraft:
 			if(keyDown(KEY_A))
 			{
+				showSprite(54);
 				setState(CategorySelect);
 				frame_count = frame_delay;
 			}
@@ -248,7 +252,7 @@ void moveCursor(void)
 	}
 	else if(programState == ItemSelect)
 	{
-		max_pos = categoryData[activeCategory].itemCount;
+		max_pos = categoryData[activeCategory + 1].itemCount;
 	}
 
 	if(keyDown(KEY_LEFT) && cursor_pos > 0)
@@ -591,18 +595,97 @@ void chooseCategory(void)
 void chooseItem(u16 itemID)
 {
 	// Do something to pick the item currently hovered.
+	if(items_chosen == 0)
+	{
+		// Set the first item.
+		itemA = categoryData[activeCategory + 1].items[cursor_pos];
+		items_chosen = 1;
+	}
+	else if(items_chosen == 1)
+	{
+		// Set the second item.
+		itemB = categoryData[activeCategory + 1].items[cursor_pos];
 
-	// Check if both items are picked.
+		// When both items are picked, attempt to craft them.
+		attemptCraft();
+	}
+}
+
+// Try to craft both items together.
+void attemptCraft(void)
+{
+	items_chosen = 0;
+
+	ItemName craftedItems[5];
+	u8 craftCount = 0;
+
+	u16 loop;
+
+	// Loop through all 311 recipes.
+	for(loop = 0; loop < 311; ++loop)
+	{
+		ItemName result = None;
+
+		if(recipes[loop].itemA == itemA)
+		{
+			if(recipes[loop].itemB == itemB)
+			{
+				result = recipes[loop].result;
+			}
+		}
+		else if(recipes[loop].itemB == itemA)
+		{
+			if(recipes[loop].itemA == itemB)
+			{
+				result = recipes[loop].result;
+			}
+		}
+
+		if(result != None)
+		{
+			craftedItems[craftCount++] = result;
+		}
+	}
+
+	if(craftCount == 0)
+	{
+		invalidCraft();
+	}
+	else
+	{
+		validCraft(craftedItems, craftCount);
+	}
 }
 
 // The crafting was unsuccessful.
 void invalidCraft(void)
 {
-
+	setState(InvalidCraft);
 }
 
 // The crafting was successful so we can display a result.
-void validCraft(u16 itemResult)
+void validCraft(ItemName *craftedItems, u8 craftCount)
 {
+	setState(ValidCraft);
+	hideSprite(54);
 
+	u8 loop;
+
+	for(loop = 0; loop < 23; ++loop)
+	{
+		if(loop < craftCount)
+		{
+			displayItem(loop, craftedItems[loop], 1);
+
+			if(unlocked[craftedItems[loop]] == 0)
+			{
+				unlocked[craftedItems[loop]] = 1;
+				setProgress(1);
+			}
+		}
+		else
+		{
+			hideSprite(loop);
+		}	
+	}
 }
