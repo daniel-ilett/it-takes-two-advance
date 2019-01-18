@@ -23,7 +23,7 @@ void setCursorPos(void);
 void setState(State state);
 
 // Sprite display functions.
-void displayItem(u8 spriteID, u16 itemID);
+void displayItem(u8 spriteID, u16 itemID, u8 ignoreUnlocked);
 void setText(const char* text);
 void setProgress(u16 newUnlocks);
 void setChar(u8 textID, char newChar);

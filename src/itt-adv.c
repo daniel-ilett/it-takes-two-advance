@@ -27,6 +27,9 @@ u8 cursor_pos = 0;
 CategoryName activeCategory = 0;
 u8 items_chosen = 0;
 
+const u8 frame_delay = 10;
+u8 frame_count = 0;
+
 // Application entry point.
 int main()
 {
@@ -93,7 +96,14 @@ int main()
 	// Start the game loop.
 	while(1)
 	{
-		update();
+		if(frame_count == 0)
+		{
+			update();
+		}
+		else
+		{
+			--frame_count;
+		}
 
 		WaitForVsync();
 		copyOAM();
@@ -188,6 +198,7 @@ void update(void)
 			{
 				activeCategory = cursor_pos;
 				chooseCategory();
+				frame_count = frame_delay;
 			}
 			break;
 		// We may pick an item.
@@ -196,10 +207,13 @@ void update(void)
 			if(keyDown(KEY_A))
 			{
 				chooseItem(categoryData[activeCategory].items[cursor_pos]);
+				frame_count = frame_delay;
+
 			}
 			else if(keyDown(KEY_B))
 			{
 				setState(CategorySelect);
+				frame_count = frame_delay;
 			}
 			break;
 		// We may return to the Category screen.
@@ -207,6 +221,7 @@ void update(void)
 			if(keyDown(KEY_A))
 			{
 				setState(CategorySelect);
+				frame_count = frame_delay;
 			}
 			break;
 		// We may return to the Category screen.
@@ -214,6 +229,7 @@ void update(void)
 			if(keyDown(KEY_A))
 			{
 				setState(CategorySelect);
+				frame_count = frame_delay;
 			}
 			break;
 	}
@@ -261,6 +277,7 @@ void moveCursor(void)
 	if(old_pos != cursor_pos)
 	{
 		setCursorPos();
+		frame_count = frame_delay;
 	}
 }
 
@@ -284,6 +301,8 @@ void setState(State state)
 			setCategoryView();
 			break;
 		case ItemSelect:
+			cursor_pos = 0;
+			setCursorPos();
 			break;
 	}
 }
@@ -302,7 +321,7 @@ void setCursorText(void)
 }
 
 // Display the chosen item in the relevant position.
-void displayItem(u8 spriteID, u16 itemID)
+void displayItem(u8 spriteID, u16 itemID, u8 ignoreUnlocked)
 {
 	// If the itemID is invalid, do not place a sprite.
 	if(itemID <= 261)
@@ -310,7 +329,7 @@ void displayItem(u8 spriteID, u16 itemID)
 		showSprite(spriteID);
 
 		// Check if item is unlocked. If so, place its sprite.
-		if(unlocked[itemID])
+		if(unlocked[itemID] || ignoreUnlocked)
 		{
 			memcpy((u16*)(0x06014000 + 0x100 * spriteID), itemData[itemID].itemSprite, itemSpriteSize);
 		}
@@ -537,14 +556,13 @@ void setCategoryView(void)
 {
 	u8 index;
 
-	for(index = 0; index < 23; ++index)
+	for(index = 1; index < 24; ++index)
 	{
-		displayItem(index, categoryData[activeCategory].headItem);
+		displayItem(index - 1, categoryData[index].headItem, 1);
 	}
 
-	cursor_pos = 0;
+	cursor_pos = activeCategory;
 	setCursorPos();
-	activeCategory = 0;
 }
 
 // Set the category of items to display to the player.
@@ -556,7 +574,7 @@ void chooseCategory(void)
 	{
 		if(categoryData[activeCategory].items[index] != 0)
 		{
-			displayItem(index, categoryData[activeCategory].items[index]);
+			displayItem(index, categoryData[activeCategory].items[index], 0);
 		}
 		else
 		{
@@ -564,7 +582,9 @@ void chooseCategory(void)
 		}
 	}
 
-	//setText(categoryData[activeCategory].categoryString);
+	hideSprite(22);
+
+	setState(ItemSelect);
 }
 
 // The user picks an item to try crafting.
