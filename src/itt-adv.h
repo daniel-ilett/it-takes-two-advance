@@ -21,6 +21,7 @@ void update(void);
 void moveCursor(void);
 void setCursorPos(void);
 void setState(State state);
+void setCursorText(void);
 
 // Sprite display functions.
 void displayItem(u8 spriteID, u16 itemID, u8 ignoreUnlocked);

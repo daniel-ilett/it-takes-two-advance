@@ -292,6 +292,7 @@ void setCursorPos(void)
 	u8 y = sprite_data[cursor_pos].startPosY + 16;
 
 	moveSprite(&sprites[53], x, y);
+	setCursorText();
 }
 
 // Set the program state.
@@ -311,16 +312,16 @@ void setState(State state)
 	}
 }
 
-// Choose the text which should appear.
+// Choose the text which should appear based on cursor position.
 void setCursorText(void)
 {
 	if(programState == CategorySelect)
 	{
-
+		setText(categoryData[cursor_pos + 1].categoryString);
 	}
 	else if(programState == ItemSelect)
 	{
-
+		setText(itemData[categoryData[activeCategory + 1].items[cursor_pos]].itemName);
 	}
 }
 
@@ -403,7 +404,7 @@ void setProgress(u16 newUnlocks)
 // Set the character shown by a specific character spot.
 void setChar(u8 textID, char newChar)
 {
-	showSprite(22 + textID);
+	showSprite(23 + textID);
 
 	switch(newChar)
 	{
