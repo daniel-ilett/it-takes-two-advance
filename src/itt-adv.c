@@ -16,22 +16,27 @@
 
 OAMEntry sprites[128];
 
-// Program state variables.
+// Track program state.
+State programState = CategorySelect;
+CategoryName activeCategory = 0;
+u8 cursor_pos = 0;
+
+// Item crafting state.
 u8 unlocked[261];
 u16 unlockedCount = 0;
 
-State programState = CategorySelect;
-
-u8 cursor_pos = 0;
-
-CategoryName activeCategory = 0;
-u8 items_chosen = 0;
-
+// Instate a delay between accepting inputs.
 const u8 frame_delay = 10;
 u8 frame_count = 0;
 
+// IDs of items selected for crafting.
 u16 itemA = 0;
 u16 itemB = 0;
+u8 items_chosen = 0;
+
+// Keep track of crafted items in the ValidCraft state.
+ItemName resultItems[4];
+u8 resultCount = 0;
 
 // Application entry point.
 int main()
@@ -97,24 +102,6 @@ int main()
 		sprites[loop].attribute1 = SIZE_8 | 0;
 		sprites[loop].attribute2 = sprites[54].attribute2 + 2 + (loop - 55) * 2;
 	}
-
-	/*
-	// Initialise chosen item sprites.
-	for(loop = 52; loop < 54; ++loop)
-	{
-		sprites[loop].attribute0 = COLOR_256 | SQUARE | 0;
-		sprites[loop].attribute1 = SIZE_16 | 0;
-		sprites[loop].attribute2 = sprites[51].attribute2 + 8 + (loop - 52) * 8;
-	}
-
-	// Initialise cursor sprite.
-	sprites[54].attribute0 = COLOR_256 | WIDE | 0;
-	sprites[54].attribute1 = SIZE_16 | 0;
-	sprites[54].attribute2 = sprites[53].attribute2 + 8;
-
-	// Put the cursor sprite in the correct memory location.
-	memcpy((u16*)0x06017600, &tx_CursorData, sizeof(tx_CursorData));
-	*/
 
 	// Put the cursor sprite in the correct memory location.
 	memcpy((u16*)0x06015900, &tx_CursorData, sizeof(tx_CursorData));
@@ -237,7 +224,6 @@ void update(void)
 			{
 				chooseItem(categoryData[activeCategory + 1].items[cursor_pos]);
 				frame_count = frame_delay;
-
 			}
 			else if(keyDown(KEY_B))
 			{
@@ -247,7 +233,8 @@ void update(void)
 			break;
 		// We may return to the Category screen.
 		case ValidCraft:
-			if(keyDown(KEY_A))
+			moveCursor();
+			if(keyDown(KEY_A) || keyDown(KEY_B))
 			{
 				showSprite(54);
 				setState(CategorySelect);
@@ -256,7 +243,7 @@ void update(void)
 			break;
 		// We may return to the Category screen.
 		case InvalidCraft:
-			if(keyDown(KEY_A))
+			if(keyDown(KEY_A) || keyDown(KEY_B))
 			{
 				setState(CategorySelect);
 				frame_count = frame_delay;
@@ -279,6 +266,10 @@ void moveCursor(void)
 	else if(programState == ItemSelect)
 	{
 		max_pos = categoryData[activeCategory + 1].itemCount;
+	}
+	else if(programState == ValidCraft)
+	{
+		max_pos = resultCount;
 	}
 
 	if(keyDown(KEY_LEFT) && cursor_pos > 0)
@@ -329,7 +320,7 @@ void setState(State state)
 		hideSprite(23);
 		hideSprite(24);
 	}
-	
+
 	programState = state;
 
 	switch(state)
@@ -345,6 +336,8 @@ void setState(State state)
 			break;
 		case ValidCraft:
 			setHeaderText("Crafting Successful");
+			cursor_pos = 0;
+			setCursorPos();
 			break;
 		case InvalidCraft:
 			setHeaderText("Invalid Recipe");
@@ -368,6 +361,10 @@ void setCursorText(void)
 		{
 			setItemText(itemData[categoryData[activeCategory + 1].items[cursor_pos]].itemName);
 		}
+	}
+	else if(programState == ValidCraft)
+	{
+		setItemText(itemData[resultItems[cursor_pos]].itemName);
 	}
 }
 
@@ -746,16 +743,21 @@ void invalidCraft(void)
 // The crafting was successful so we can display a result.
 void validCraft(ItemName *craftedItems, u8 craftCount)
 {
-	setState(ValidCraft);
 	hideSprite(54);
 
 	u8 loop;
+
+	resultCount = 0;
 
 	for(loop = 0; loop < 23; ++loop)
 	{
 		// Show all result sprites.
 		if(loop < craftCount)
 		{
+			// Track crafted items while ValidCraft state is active.
+			resultItems[resultCount] = craftedItems[loop];
+			resultCount++;
+
 			displayItem(loop, craftedItems[loop], 1);
 
 			if(unlocked[craftedItems[loop]] == 0)
@@ -770,4 +772,6 @@ void validCraft(ItemName *craftedItems, u8 craftCount)
 			hideSprite(loop);
 		}	
 	}
+
+	setState(ValidCraft);
 }
