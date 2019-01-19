@@ -61,28 +61,41 @@ int main()
 		sprites[loop].attribute2 = 512 + loop * 8;
 	}
 
+	// Initialise chosen item sprites.
+	for(loop = 23; loop < 25; ++loop)
+	{
+		sprites[loop].attribute0 = COLOR_256 | SQUARE | 0;
+		sprites[loop].attribute1 = SIZE_16 | 0;
+		sprites[loop].attribute2 = sprites[22].attribute2 + 8 + (loop - 23) * 8;
+	}
+
+	// Initialise cursor sprite.
+	sprites[25].attribute0 = COLOR_256 | WIDE | 0;
+	sprites[25].attribute1 = SIZE_16 | 0;
+	sprites[25].attribute2 = sprites[24].attribute2 + 8;
+
 	// Initialise item name text slot sprites.
-	for(loop = 23; loop < 45; ++loop)
+	for(loop = 26; loop < 48; ++loop)
 	{
 		sprites[loop].attribute0 = COLOR_256 | SQUARE | 0;
 		sprites[loop].attribute1 = SIZE_8 | 0;
-		sprites[loop].attribute2 = sprites[22].attribute2 + 8 + (loop - 23) * 2;
+		sprites[loop].attribute2 = sprites[25].attribute2 + 8 + (loop - 26) * 2;
 	}
 
 	// Initialise progress text slot sprites.
-	for(loop = 45; loop < 52; ++loop)
+	for(loop = 48; loop < 55; ++loop)
 	{
 		sprites[loop].attribute0 = COLOR_256 | SQUARE | 0;
 		sprites[loop].attribute1 = SIZE_8 | 0;
-		sprites[loop].attribute2 = sprites[44].attribute2 + 2 + (loop - 45) * 2;
+		sprites[loop].attribute2 = sprites[47].attribute2 + 2 + (loop - 48) * 2;
 	}
 
 	// Initialise header text.
-	for(loop = 52; loop < 71; ++loop)
+	for(loop = 55; loop < 74; ++loop)
 	{
 		sprites[loop].attribute0 = COLOR_256 | SQUARE | 0;
 		sprites[loop].attribute1 = SIZE_8 | 0;
-		sprites[loop].attribute2 = sprites[51].attribute2 + 2 + (loop - 52) * 2;
+		sprites[loop].attribute2 = sprites[54].attribute2 + 2 + (loop - 55) * 2;
 	}
 
 	/*
@@ -102,6 +115,9 @@ int main()
 	// Put the cursor sprite in the correct memory location.
 	memcpy((u16*)0x06017600, &tx_CursorData, sizeof(tx_CursorData));
 	*/
+
+	// Put the cursor sprite in the correct memory location.
+	memcpy((u16*)0x06015900, &tx_CursorData, sizeof(tx_CursorData));
 
 	initialiseSprites();
 	initialiseGame();
@@ -301,7 +317,7 @@ void setCursorPos(void)
 	u8 x = sprite_data[cursor_pos].startPosX;
 	u8 y = sprite_data[cursor_pos].startPosY + 16;
 
-	moveSprite(&sprites[54], x, y);
+	moveSprite(&sprites[25], x, y);
 	setCursorText();
 }
 
@@ -353,7 +369,7 @@ void setCursorText(void)
 void displayItem(u8 spriteID, u16 itemID, u8 ignoreUnlocked)
 {
 	// If the itemID is invalid, do not place a sprite.
-	if(itemID <= 261)
+	if(itemID <= 262)
 	{
 		showSprite(spriteID);
 
@@ -388,7 +404,7 @@ void setItemText(const char *text)
 		}
 		else
 		{
-			hideSprite(22 + index);
+			hideSprite(25 + index);
 		}
 	}
 }
@@ -399,7 +415,7 @@ void setHeaderText(const char *text)
 	int len = strlen(text);
 
 	u8 index;
-	for(index = 0; index < 19; ++index)
+	for(index = 0; index < 20; ++index)
 	{
 		if(index <= len)
 		{
@@ -407,7 +423,7 @@ void setHeaderText(const char *text)
 		}
 		else
 		{
-			hideSprite(22 + 29 + index);
+			hideSprite(25 + 29 + index);
 		}
 	}
 }
@@ -431,7 +447,7 @@ void setProgress(u16 newUnlocks)
 	progressString[3] = '/';
 	progressString[4] = '2';
 	progressString[5] = '6';
-	progressString[6] = '0';
+	progressString[6] = '2';
 	progressString[7] = '\0';
 
 	// It's all just exploits all the way down.
@@ -447,9 +463,9 @@ void setProgress(u16 newUnlocks)
 // Set the character shown by a specific character spot.
 void setChar(u8 textID, char newChar)
 {
-	showSprite(23 + textID);
+	showSprite(26 + textID);
 
-	u16 *spriteLocation = (u16*)(0x06015700 + 0x40 * textID);
+	u16 *spriteLocation = (u16*)(0x06015a00 + 0x40 * textID);
 
 	switch(newChar)
 	{
@@ -643,7 +659,7 @@ void chooseItem(u16 itemID)
 		if(items_chosen == 0)
 		{
 			// Copy item data into correct location and show sprite.
-			memcpy((u16*)(0x06017400), itemData[itemID].itemSprite, itemSpriteSize);
+			displayItem(23, itemID, 1);
 
 			// Set the first item.
 			itemA = categoryData[activeCategory + 1].items[cursor_pos];
@@ -652,7 +668,7 @@ void chooseItem(u16 itemID)
 		else if(items_chosen == 1)
 		{
 			// Copy item data into correct location and show sprite.
-			memcpy((u16*)(0x06017500), itemData[itemID].itemSprite, itemSpriteSize);
+			displayItem(24, itemID, 1);
 
 			// Set the second item.
 			itemB = categoryData[activeCategory + 1].items[cursor_pos];
@@ -731,6 +747,7 @@ void validCraft(ItemName *craftedItems, u8 craftCount)
 
 	for(loop = 0; loop < 23; ++loop)
 	{
+		// Show all result sprites.
 		if(loop < craftCount)
 		{
 			displayItem(loop, craftedItems[loop], 1);
@@ -741,6 +758,7 @@ void validCraft(ItemName *craftedItems, u8 craftCount)
 				setProgress(1);
 			}
 		}
+		// Hide other item sprites.
 		else
 		{
 			hideSprite(loop);
