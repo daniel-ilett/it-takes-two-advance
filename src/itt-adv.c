@@ -324,6 +324,12 @@ void setCursorPos(void)
 // Set the program state.
 void setState(State state)
 {
+	if(programState == ValidCraft || programState == InvalidCraft)
+	{
+		hideSprite(23);
+		hideSprite(24);
+	}
+	
 	programState = state;
 
 	switch(state)
