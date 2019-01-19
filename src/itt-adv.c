@@ -280,13 +280,31 @@ void moveCursor(void)
 	{
 		cursor_pos++;
 	}
-	else if(keyDown(KEY_UP) && cursor_pos >= 9)
+	else if(keyDown(KEY_UP))
 	{
-		cursor_pos -= 9;
+		if(cursor_pos >= 9 && cursor_pos < 18)
+		{
+			cursor_pos -= 9;
+		}
+		else if(cursor_pos >= 18)
+		{
+			cursor_pos -= 7;
+		}
 	}
 	else if(keyDown(KEY_DOWN))
 	{
-		cursor_pos += 9;
+		if(cursor_pos < 9)
+		{
+			cursor_pos += 9;
+		}
+		else if(cursor_pos >= 9 && cursor_pos < 11)
+		{
+			cursor_pos = 18;
+		}
+		else if(cursor_pos >= 11 && cursor_pos < 18)
+		{
+			cursor_pos += 7;
+		}
 	}
 
 	if(cursor_pos >= max_pos)
@@ -737,6 +755,16 @@ void attemptCraft(void)
 // The crafting was unsuccessful.
 void invalidCraft(void)
 {
+	// Hide the item tray, item names, and the cursor.
+	u8 loop;
+	for(loop = 0; loop < 23; ++loop)
+	{
+		hideSprite(loop);
+	}
+
+	setItemText("");
+	hideSprite(25);
+
 	setState(InvalidCraft);
 }
 
