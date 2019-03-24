@@ -30,3 +30,7 @@ It Takes Two (Advance) was released [on itch.io](https://danielilett.itch.io/it-
 
 ## License
 Feel free to play around with the source code for personal use, but please give the author credit and don't distribute this commercially.
+
+Thanks for playing my games.
+
+❤
